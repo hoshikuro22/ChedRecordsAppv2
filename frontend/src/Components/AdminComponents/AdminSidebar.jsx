@@ -12,6 +12,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { makeRequest } from "../../../axios";
+import { useLocation } from "react-router-dom";
 
 export default function AdminSidebar() {
   const [LastName, setLastName] = useState("");
@@ -44,6 +45,7 @@ export default function AdminSidebar() {
       })
       .catch((err) => console.log(err));
   };
+  const location = useLocation();
 
   return (
     <div>
@@ -81,18 +83,27 @@ export default function AdminSidebar() {
                 <li>
                   <a
                     href="/admin/communications"
-                    className="py-1 px-2 rounded hover:bg-gray-700 flex gap-3 items-center"
+                    className={`py-1 px-2 rounded flex gap-3 items-center ${
+                      location.pathname === "/admin/communications"
+                        ? "bg-gray-500"
+                        : "hover:bg-gray-700"
+                    }`}
                   >
                     <BiMessageSquare />
                     Communications
                   </a>
                 </li>
               </div>
+
               <div className="text-center block items-center mb-2">
                 <li>
                   <a
                     href="/admin/chedclients"
-                    className="py-1 px-2 rounded hover:bg-gray-700 flex gap-3 items-center"
+                    className={`py-1 px-2 rounded flex gap-3 items-center ${
+                      location.pathname === "/admin/chedclients"
+                        ? "bg-gray-500"
+                        : "hover:bg-gray-700"
+                    }`}
                   >
                     <GoOrganization />
                     CHED Clients
@@ -104,7 +115,11 @@ export default function AdminSidebar() {
                 <li>
                   <a
                     href="/admin/documenttypes"
-                    className="py-1 px-2 rounded hover:bg-gray-700 flex gap-3 items-center"
+                    className={`py-1 px-2 rounded flex gap-3 items-center ${
+                      location.pathname === "/admin/documenttypes"
+                        ? "bg-gray-500"
+                        : "hover:bg-gray-700"
+                    }`}
                   >
                     <IoIosFolder />
                     Document Types
@@ -116,7 +131,11 @@ export default function AdminSidebar() {
                 <li>
                   <a
                     href="/admin/clienttypes"
-                    className="py-1 px-2 rounded hover:bg-gray-700 flex gap-3 items-center"
+                    className={`py-1 px-2 rounded flex gap-3 items-center ${
+                      location.pathname === "/admin/clienttypes"
+                        ? "bg-gray-500"
+                        : "hover:bg-gray-700"
+                    }`}
                   >
                     <BsFillPersonLinesFill />
                     Client Types
@@ -128,18 +147,27 @@ export default function AdminSidebar() {
                 <li>
                   <a
                     href="/admin/listofpersonnel"
-                    className="py-1 px-2 rounded hover:bg-gray-700 flex gap-3 items-center"
+                    className={`py-1 px-2 rounded flex gap-3 items-center ${
+                      location.pathname === "/admin/listofpersonnel"
+                        ? "bg-gray-500"
+                        : "hover:bg-gray-700"
+                    }`}
                   >
                     <BsPersonVcard />
                     List of Personnel
                   </a>
                 </li>
               </div>
+
               <div className="text-center block items-center mb-2">
                 <li>
                   <a
                     href="/admin/reports"
-                    className="py-1 px-2 rounded hover:bg-gray-700 flex gap-3 items-center"
+                    className={`py-1 px-2 rounded flex gap-3 items-center ${
+                      location.pathname === "/admin/reports"
+                        ? "bg-gray-500"
+                        : "hover:bg-gray-700"
+                    }`}
                   >
                     <BiSolidReport />
                     Reports
@@ -150,19 +178,28 @@ export default function AdminSidebar() {
           </div>
 
           <div className="bottom-5 absolute">
-            <div className="mb-4">
+            <div className="mb-2">
               <a
                 href="/admin/activitylog"
-                className="px-2 rounded hover:bg-gray-700 flex gap-2 items-center"
+                className={`py-1 px-2 rounded flex gap-3 items-center ${
+                  location.pathname === "/admin/activitylog"
+                    ? "bg-gray-500"
+                    : "hover:bg-gray-700"
+                }`}
               >
                 <FaClockRotateLeft />
                 Activity Log
               </a>
             </div>
-            <div className="mb-4">
+
+            <div className="mb-2">
               <a
                 href="/admin/addaccount"
-                className="px-2 rounded hover:bg-gray-700 flex gap-2 items-center"
+                className={`py-1 px-2 rounded flex gap-3 items-center ${
+                  location.pathname === "/admin/addaccount"
+                    ? "bg-gray-500"
+                    : "hover:bg-gray-700"
+                }`}
               >
                 <IoMdPersonAdd />
                 Accounts
@@ -172,7 +209,7 @@ export default function AdminSidebar() {
               <Link
                 to="/login"
                 onClick={handleLogout}
-                className="px-2 rounded hover:bg-gray-700 flex gap-2 items-center"
+                className="px-2 rounded hover:bg-gray-700 flex gap-3 items-center"
               >
                 <BiLogOut />
                 Logout

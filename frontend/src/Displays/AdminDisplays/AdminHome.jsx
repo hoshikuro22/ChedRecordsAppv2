@@ -154,7 +154,12 @@ export default function AdminHome() {
     const labels = Object.keys(counts);
     const data = labels.map((label) => counts[label]);
     const backgroundColor = labels.map(() => generateRandomColor());
-    return { labels, datasets: [{ label: "Status", data, backgroundColor }] };
+    return {
+      labels,
+      datasets: [
+        { label: "No. of Communications by Status", data, backgroundColor },
+      ],
+    };
   };
 
   // Function to generate random colors
@@ -182,23 +187,20 @@ export default function AdminHome() {
       <div className="container mx-auto flex-row ">
         <h1 className="text-3xl font-semibold text-gray-800 mb-1">Dashboard</h1>
         <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-36">
-          <div
-            href="/admin/communications"
-            className="bg-white rounded-lg shadow-lg p-2 border border-gray-300 hover:border-indigo-600 transition-all"
-          >
+          <div className="bg-white rounded-lg shadow-lg p-2 border border-gray-300 hover:border-indigo-600 transition-all">
             <div className="flex items-center space-x-4">
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-semibold text-gray-600">
                   Total Communications:
                 </p>
-                <p className="text-2xl font-bold text-gray-800 flex gap-4 mt-2">
+                <p className="text-2xl font-bold text-indigo-800 flex gap-4 mt-2">
                   <span className="text-4xl leading-loose text-indigo-600">
                     <FaEnvelope />
                   </span>{" "}
                   {communicationCount} Files
                 </p>
                 <button
-                  className="font-bold cursor-pointer hover:bg-gray-500 bg-gray-200 w-50 p-2 border border-black rounded"
+                  className="font-semibold cursor-pointer hover:bg-indigo-600 bg-indigo-400 w-50 p-2 border border-indigo-800 text-white hover:text-black rounded"
                   onClick={toggleCommunicationDropdown}
                 >
                   {communicationdropdownSelection}:
@@ -208,8 +210,9 @@ export default function AdminHome() {
 
             {communicationdropdownSelection === "By Clients" ? (
               <TEChart
-              style={{ width: "100px", height: "100px" }}
+                style={{ width: "80px", height: "80px" }}
                 type="pie"
+                // types are : bar, line, doughnut, pie, polarArea, radar
                 data={documentByClients}
                 options={{
                   tooltips: {
@@ -228,7 +231,7 @@ export default function AdminHome() {
               />
             ) : communicationdropdownSelection === "By Filing Category" ? (
               <TEChart
-              style={{ width: "100px", height: "100px" }}
+                style={{ width: "80px", height: "80px" }}
                 type="pie"
                 data={documentByDocumentTypes}
                 options={{
@@ -249,8 +252,8 @@ export default function AdminHome() {
               />
             ) : (
               <TEChart
-              style={{ width: "100px", height: "100px" }}
-                type="pie"
+                style={{ width: "80px", height: "80px" }}
+                type="bar"
                 data={documentStatusCounts}
                 options={{
                   tooltips: {
@@ -270,26 +273,25 @@ export default function AdminHome() {
             )}
           </div>
 
-          <div
-            href="/admin/chedclients"
-            className="bg-white rounded-lg shadow-lg p-2 border border-gray-300 hover:border-green-500 transition-all"
-          >
+          <div className="bg-white rounded-lg shadow-lg p-2 border border-gray-300 hover:border-green-500 transition-all">
             <div className="flex items-center space-x-4">
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-semibold text-gray-600">
                   Total CHED Clients
                 </p>
-                <p className="text-2xl font-bold text-gray-800 mb-1 flex gap-4 mt-2">
+                <p className="text-2xl font-bold text-green-800 mb-1 flex gap-4 mt-2">
                   <span className="text-4xl leading-loose text-green-500">
                     <FaUsers />
                   </span>{" "}
                   {clientCount} Clients
                 </p>
-                <p className="font-bold w-28 p-2  rounded">Client Types: </p>
+                <p className="font-bold w-28 p-2 text-green-500 rounded">
+                  Client Types:{" "}
+                </p>
               </div>
             </div>
             <TEChart
-                style={{ width: "100px", height: "100px" }}
+              style={{ width: "80px", height: "80px" }}
               type="pie"
               data={clientTypeCounts}
             />

@@ -13,6 +13,21 @@ export default function CommunicationsNormalTable({
   documentTypeOptions,
   unitOptions,
 }) {
+    //sa color function for STATUS//
+    const getStatusColorClass = (status) => {
+      switch (status) {
+        case "Pending":
+          return "text-blue-500";
+        case "Approved":
+          return "text-green-500";
+        case "Disapproved":
+          return "text-red-500";
+        case "No Action":
+          return "text-black";
+        default:
+          return ""; 
+      }
+    };
   //sa filtering function for STATUS//
   const [showStatusFilterDropdown, setShowStatusFilterDropdown] =
     useState(false);
@@ -101,7 +116,7 @@ export default function CommunicationsNormalTable({
                           selectedClientNameFilter === ""
                             ? "bg-gray-200 text-gray-900"
                             : "text-gray-700"
-                        } block px-1 py-2 text-sm w-full text-left`}
+                        } block px-1 py-2 text-sm w-full text-center hover:bg-gray-500`}
                       >
                         All
                       </button>
@@ -115,7 +130,7 @@ export default function CommunicationsNormalTable({
                             selectedClientNameFilter === client.client_name
                               ? "bg-gray-200 text-gray-900"
                               : "text-gray-700"
-                          } block px-1 py-2 text-sm w-full text-left`}
+                          } block px-1 py-2 text-sm w-full text-center hover:bg-gray-500`}
                         >
                           {client.client_name}
                         </button>
@@ -148,7 +163,7 @@ export default function CommunicationsNormalTable({
                           selectedUnitFilter === ""
                             ? "bg-gray-200 text-gray-900"
                             : "text-gray-700"
-                        } block px-1 py-2 text-sm w-full text-left`}
+                        } block px-1 py-2 text-sm w-full text-center hover:bg-gray-500`}
                       >
                         All
                       </button>
@@ -160,7 +175,7 @@ export default function CommunicationsNormalTable({
                             selectedUnitFilter === unit.type
                               ? "bg-gray-200 text-gray-900"
                               : "text-gray-700"
-                          } block px-1 py-2 text-sm w-full text-left`}
+                          } block px-1 py-2 text-sm w-full text-center hover:bg-gray-500`}
                         >
                           {unit.type}
                         </button>
@@ -188,9 +203,9 @@ export default function CommunicationsNormalTable({
                           selectedTypeFilter === ""
                             ? "bg-gray-200 text-gray-900 "
                             : "text-gray-700"
-                        } block px-1 py-2 text-sm w-full text-left `}
+                        } block px-1 py-2 text-sm w-full text-center hover:bg-gray-500 `}
                       >
-                        All
+                        All Category
                       </button>
                       {documentTypeOptions.map((type) => (
                         <button
@@ -200,7 +215,7 @@ export default function CommunicationsNormalTable({
                             selectedTypeFilter === type.doc_type_ID
                               ? "bg-gray-200 text-gray-900"
                               : "text-gray-700"
-                          } block px-1 py-2 text-sm w-full text-left`}
+                          } block px-1 py-2 text-sm w-full text-center hover:bg-gray-500`}
                         >
                           {type.type}
                         </button>
@@ -239,9 +254,9 @@ export default function CommunicationsNormalTable({
                           selectedStatusFilter === ""
                             ? "bg-gray-200 text-gray-900"
                             : "text-gray-700"
-                        } block px-1 py-2 text-sm w-full text-left`}
+                        } block px-1 py-2 text-sm w-full text-center hover:bg-gray-500`}
                       >
-                        All
+                        All Status
                       </button>
                       <button
                         onClick={() => handleSelectStatusFilter("0")}
@@ -249,7 +264,7 @@ export default function CommunicationsNormalTable({
                           selectedStatusFilter === "0"
                             ? "bg-gray-200 text-gray-900"
                             : "text-gray-700"
-                        } block px-1 py-2 text-sm w-full text-left`}
+                        } block px-1 py-2 text-sm w-full text-center hover:bg-gray-500`}
                       >
                         Pending
                       </button>
@@ -259,7 +274,7 @@ export default function CommunicationsNormalTable({
                           selectedStatusFilter === "1"
                             ? "bg-gray-200 text-gray-900"
                             : "text-gray-700"
-                        } block px-1 py-2 text-sm w-full text-left`}
+                        } block px-1 py-2 text-sm w-full text-center hover:bg-gray-500`}
                       >
                         Approved
                       </button>
@@ -269,7 +284,7 @@ export default function CommunicationsNormalTable({
                           selectedStatusFilter === "2"
                             ? "bg-gray-200 text-gray-900"
                             : "text-gray-700"
-                        } block px-1 py-2 text-sm w-full text-left`}
+                        } block px-1 py-2 text-sm w-full text-center hover:bg-gray-500`}
                       >
                         Disapproved
                       </button>
@@ -338,32 +353,32 @@ export default function CommunicationsNormalTable({
               <tr key={document.doc_ID}>
                 {/* <td className="border px-4 py-2 text-center">{document.doc_ID}</td> */}
 
-                <td className="border px-1 py-2 text-left">
+                <td className="border px-3 py-2 text-left">
                   {document.client_name}
                 </td>
-                <td className="border px-1 py-2 text-left">
+                <td className="border px-3 py-2 text-left">
                   {document.contact_firstName} {document.contact_lastName}
                 </td>
-                <td className="border px-1 py-2 text-left">
+                <td className="border px-3 py-2 text-left">
                   {document.unit}
                 </td>
-                <td className="border px-1 py-2 text-left">
+                <td className="border px-3 py-2 text-left">
                   {document.document_type}
                 </td>
-                <td className="border px-1 py-2 text-left">
+                <td className="border px-3 py-2 text-left">
                   {document.date_received}
                 </td>
                 {/* <td className="border px-4 py-2 text-center">{document.date_released}</td> */}
-                <td className="border px-1 py-2 text-left">
+                <td className={`border px-3 py-2 text-left font-semibold ${getStatusColorClass(document.status)}`}>
                   {document.status}
                 </td>
-                <td className="border px-1 py-2 text-left">
+                <td className="border px-3 py-2 text-left">
                   {document.remarks}
                 </td>
-                <td className="border px-1 py-2 text-left">
+                <td className="border px-3 py-2 text-left">
                   <FileLink item={document} />
                 </td>
-                <td className="border px-1 py-2 text-left">
+                <td className="border px-3 py-2 text-left">
                   {/* <button
             className="text-blue-500 hover:underline"
             onClick={() => handleEditClick(document.doc_ID)}
@@ -428,7 +443,7 @@ const FileLink = ({ item }) => {
   }, [item.file, fileUrl]);
  // Truncate the file name to 25 characters
  const truncatedFileName =
- item.file.length > 25 ? item.file.substring(0, 25) + "..." : item.file;
+ item.file.length > 40 ? item.file.substring(0, 40) + "..." : item.file;
 
 return (
  <a

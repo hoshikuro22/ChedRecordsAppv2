@@ -6,6 +6,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { makeRequest } from "../../../axios";
+import { useLocation } from "react-router-dom";
 
 export default function NormalSidebar() {
   const [lastName, setlastName] = useState("");
@@ -34,7 +35,7 @@ export default function NormalSidebar() {
       })
       .catch((err) => console.log(err));
   };
-
+  const location = useLocation();
   return (
     <div>
       <div className=" bg-slate-800 bottom-0 fixed h-screen w-72">
@@ -67,22 +68,32 @@ export default function NormalSidebar() {
 
           <div className="flex items-center mt-5">
             <ul>
-              <div className="text-center block items-center mb-2">
+
+              <div className="text-center block items-center mb-5">
                 <li>
                   <a
                     href="/normal/ncommunications"
-                    className="py-1 px-2 rounded hover:bg-gray-700 flex gap-3 items-center mb-5"
+                    className={`py-1 px-2 rounded flex gap-3 items-center ${
+                      location.pathname === "/normal/ncommunications"
+                        ? "bg-gray-500"
+                        : "hover:bg-gray-700"
+                    }`}
                   >
                     <BiMessageSquare />
-                    Communication
+                    Communications
                   </a>
                 </li>
               </div>
+
               <div className="text-center block items-center mb-2">
                 <li>
                   <a
                     href="/normal/nreports"
-                    className="py-1 px-2 rounded hover:bg-gray-700 flex gap-3 items-center mb-5"
+                    className={`py-1 px-2 rounded flex gap-3 items-center ${
+                      location.pathname === "/normal/nreports"
+                        ? "bg-gray-500"
+                        : "hover:bg-gray-700"
+                    }`}
                   >
                     <BiSolidReport />
                     Reports

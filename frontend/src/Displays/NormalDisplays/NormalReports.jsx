@@ -414,15 +414,15 @@ export default function NormalReports() {
                       key={document.doc_ID}
                       className="border-b border-gray-200 hover:bg-gray-100"
                     >
-                      <td>{document.client_name}</td>
-                      <td>
+                      <td className="p-1">{document.client_name}</td>
+                      <td className="p-1">
                         {document.contact_firstName} {document.contact_lastName}
                       </td>
-                      <td>{document.unit}</td>
-                      <td>{document.document_type}</td>
-                      <td>{document.date_received}</td>
-                      <td>{document.status}</td>
-                      <td>
+                      <td className="p-1">{document.unit}</td>
+                      <td className="p-1">{document.document_type}</td>
+                      <td className="p-1">{document.date_received}</td>
+                      <td className="p-1">{document.status}</td>
+                      <td className="p-1">
                         <FileLink item={document} />
                       </td>
                     </tr>
@@ -506,7 +506,7 @@ const FileLink = ({ item }) => {
 
   // Truncate the file name to 25 characters
   const truncatedFileName =
-    item.file.length > 25 ? item.file.substring(0, 25) + "..." : item.file;
+    item.file.length > 40 ? item.file.substring(0, 40) + "..." : item.file;
 
   return (
     <a

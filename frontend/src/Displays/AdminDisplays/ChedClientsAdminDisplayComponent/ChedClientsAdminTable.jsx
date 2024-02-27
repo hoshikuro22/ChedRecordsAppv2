@@ -53,7 +53,7 @@ export default function ChedClientsAdminTable({
                           selectedClientTypeFilter === ""
                             ? "bg-gray-200 text-gray-900"
                             : "text-gray-700"
-                        } block px-4 py-2 text-sm w-full text-left`}
+                        } block px-4 py-2 text-sm w-full text-center hover:bg-gray-500`}
                       >
                         All
                       </button>
@@ -65,7 +65,7 @@ export default function ChedClientsAdminTable({
                             selectedClientTypeFilter === option.Client_type_ID
                               ? 'bg-gray-200 text-gray-900'
                               : 'text-gray-700'
-                          } block px-4 py-2 text-sm w-full text-left`}
+                          } block px-4 py-2 text-sm w-full text-center hover:bg-gray-500`}
                         >
                           {option.type}
                         </button>
