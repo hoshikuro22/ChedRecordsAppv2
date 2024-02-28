@@ -29,7 +29,7 @@ export default function ChedClientsAdminTable({
        <table className="min-w-full leading-normal">
          <thead className="bg-gray-200 sticky top-0">
           <tr className="bg-gray-400">
-            <th className="px-4 py-2 ">Client ID</th>
+            {/* <th className="px-4 py-2 ">Client ID</th> */}
             <th className="px-4 py-2">Name of Client</th>
             <th className="px-4 py-2">
               <div className="relative inline-block ml-2">
@@ -91,7 +91,7 @@ export default function ChedClientsAdminTable({
             ))
             .map((client) => (
               <tr key={client.client_id}>
-                <td className="border px-3 py-2 text-left">{client.client_id}</td>
+                {/* <td className="border px-3 py-2 text-left">{client.client_id}</td> */}
                 <td className="border px-3 py-2 text-left">{client.client_name}</td>
                 <td className="border px-3 py-2 text-left">{client.client_type}</td>
                 <td className="border px-3 py-2 text-left flex">

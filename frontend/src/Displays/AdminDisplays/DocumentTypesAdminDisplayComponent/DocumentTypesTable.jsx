@@ -15,8 +15,8 @@ export default function DocumentTypesTable({ documentTypes, handleDeleteClick, h
           <tr className="bg-gray-200">
             {/* <th className="px-4 py-2">ID</th> */}
             <th className="px-4 py-2 text-center">Document Type</th>
-            <th className="px-4 py-2 text-left">Remarks</th>
-            <th className="px-4 py-2 text-left">Action</th>
+            <th className="px-4 py-2 text-center">Remarks</th>
+            <th className="px-4 py-2 text-center">Action</th>
           
 
           </tr>
@@ -26,9 +26,9 @@ export default function DocumentTypesTable({ documentTypes, handleDeleteClick, h
             <tr key={index}>
               {/* <td className="border px-4 py-2 text-center">{documentType.Doc_type_ID}</td> */}
               <td className="border px-4 py-2 text-left">{documentType.type}</td>
-              <td className="border px-4 py-2 text-left">{documentType.remarks}</td>
+              <td className="border px-4 py-2 text-center">{documentType.remarks}</td>
 
-              <td className="border px-4 py-2 text-left">
+              <td className="border px-4 py-2 text-center">
               <button
                  title="Modify"
                  className="text-blue-500 hover:underline ml-2 font-bold"

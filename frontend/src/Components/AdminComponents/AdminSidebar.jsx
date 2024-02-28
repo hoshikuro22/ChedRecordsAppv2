@@ -85,7 +85,7 @@ export default function AdminSidebar() {
                     href="/admin/communications"
                     className={`py-1 px-2 rounded flex gap-3 items-center ${
                       location.pathname === "/admin/communications"
-                        ? "bg-gray-500"
+                        ? "bg-gray-500 hover:bg-gray-700 font-bold"
                         : "hover:bg-gray-700"
                     }`}
                   >
@@ -101,7 +101,7 @@ export default function AdminSidebar() {
                     href="/admin/chedclients"
                     className={`py-1 px-2 rounded flex gap-3 items-center ${
                       location.pathname === "/admin/chedclients"
-                        ? "bg-gray-500"
+                        ? "bg-gray-500 hover:bg-gray-700 font-bold"
                         : "hover:bg-gray-700"
                     }`}
                   >
@@ -117,7 +117,7 @@ export default function AdminSidebar() {
                     href="/admin/documenttypes"
                     className={`py-1 px-2 rounded flex gap-3 items-center ${
                       location.pathname === "/admin/documenttypes"
-                        ? "bg-gray-500"
+                        ? "bg-gray-500 hover:bg-gray-700 font-bold"
                         : "hover:bg-gray-700"
                     }`}
                   >
@@ -133,7 +133,7 @@ export default function AdminSidebar() {
                     href="/admin/clienttypes"
                     className={`py-1 px-2 rounded flex gap-3 items-center ${
                       location.pathname === "/admin/clienttypes"
-                        ? "bg-gray-500"
+                        ? "bg-gray-500 hover:bg-gray-700 font-bold"
                         : "hover:bg-gray-700"
                     }`}
                   >
@@ -149,7 +149,7 @@ export default function AdminSidebar() {
                     href="/admin/listofpersonnel"
                     className={`py-1 px-2 rounded flex gap-3 items-center ${
                       location.pathname === "/admin/listofpersonnel"
-                        ? "bg-gray-500"
+                        ? "bg-gray-500 hover:bg-gray-700 font-bold"
                         : "hover:bg-gray-700"
                     }`}
                   >
@@ -165,7 +165,7 @@ export default function AdminSidebar() {
                     href="/admin/reports"
                     className={`py-1 px-2 rounded flex gap-3 items-center ${
                       location.pathname === "/admin/reports"
-                        ? "bg-gray-500"
+                        ? "bg-gray-500 hover:bg-gray-700 font-bold"
                         : "hover:bg-gray-700"
                     }`}
                   >
@@ -183,7 +183,7 @@ export default function AdminSidebar() {
                 href="/admin/activitylog"
                 className={`py-1 px-2 rounded flex gap-3 items-center ${
                   location.pathname === "/admin/activitylog"
-                    ? "bg-gray-500"
+                    ? "bg-gray-500 hover:bg-gray-700 font-bold"
                     : "hover:bg-gray-700"
                 }`}
               >
@@ -197,7 +197,7 @@ export default function AdminSidebar() {
                 href="/admin/addaccount"
                 className={`py-1 px-2 rounded flex gap-3 items-center ${
                   location.pathname === "/admin/addaccount"
-                    ? "bg-gray-500"
+                    ? "bg-gray-500 hover:bg-gray-700 font-bold"
                     : "hover:bg-gray-700"
                 }`}
               >

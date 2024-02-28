@@ -115,75 +115,56 @@ export default function Profile() {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen">
-      <div className="bg-white rounded-lg overflow-hidden shadow-md w-full max-w-md">
-        <div className="bg-blue-600 text-white p-4">
-          <h2 className="text-3xl font-semibold flex justify-center">
-            User Profile
-          </h2>
-        </div>
-        <table className="w-full">
-          <tbody>
-            <tr className="bg-gray-100">
-              <td className="border px-4 py-2 font-semibold">User ID:</td>
-              <td className="border px-4 py-2">{userData.User_ID}</td>
-            </tr>
+    <div className="relative ml-5 mt-28">
+  <h2 className="text-3xl font-semibold text-center bg-blue-600 text-white p-4">
+    User Profile
+  </h2>
+  <table className="min-w-full leading-normal">
+    <thead className="bg-gray-400">
+    <tr className="bg-gray-400 ">
+        <th className="border px-3 py-2">User ID</th>
+        <th className="border px-3 py-2">User Type ID</th>
+        <th className="border px-3 py-2">First Name</th>
+        <th className="border px-3 py-2">Last Name</th>
+        <th className="border px-3 py-2">Email</th>
+        <th className="border px-3 py-2">Mobile Number</th>
+        <th className="border px-3 py-2">Username</th>
+        <th className="border px-3 py-2">Password</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td className="border px-3 py-2">{userData.User_ID}</td>
+        <td className="border px-3 py-2">{userData.User_type_ID}</td>
+        <td className="border px-3 py-2">{userData.First_Name}</td>
+        <td className="border px-3 py-2">{userData.Last_Name}</td>
+        <td className="border px-3 py-2">{userData.Email}</td>
+        <td className="border px-3 py-2">{userData.Contact_Number}</td>
+        <td className="border px-3 py-2">{userData.Username}</td>
+        <td className="border px-3 py-2">*</td>
+      </tr>
+    </tbody>
+  </table>
 
-            <tr>
-              <td className="border px-4 py-2 font-semibold">User Type ID:</td>
-              <td className="border px-4 py-2">{userData.User_type_ID}</td>
-            </tr>
+  <div className="p-4">
+    <button
+      onClick={openModal}
+      className="w-full bg-blue-500 text-white font-bold rounded py-2 cursor-pointer"
+    >
+      EDIT
+    </button>
+    {isModalOpen && (
+      <ProfileAdminEditForm
+        editFormData={editFormData}
+        handleEditSubmit={handleEditSubmit}
+        closeModal={closeModal}
+        handleChange={handleChange}
+        newPassword={newPassword}
+        setNewPassword={setNewPassword}
+      />
+    )}
+  </div>
+</div>
 
-            <tr className="bg-gray-100">
-              <td className="border px-4 py-2 font-semibold">First Name:</td>
-              <td className="border px-4 py-2">{userData.First_Name}</td>
-            </tr>
-
-            <tr>
-              <td className="border px-4 py-2 font-semibold">Last Name:</td>
-              <td className="border px-4 py-2">{userData.Last_Name}</td>
-            </tr>
-
-            <tr className="bg-gray-100">
-              <td className="border px-4 py-2 font-semibold">Email:</td>
-              <td className="border px-4 py-2">{userData.Email}</td>
-            </tr>
-
-            <tr>
-              <td className="border px-4 py-2 font-semibold">Mobile Number:</td>
-              <td className="border px-4 py-2">{userData.Contact_Number}</td>
-            </tr>
-
-            <tr>
-              <td className="border px-4 py-2 font-semibold">Username:</td>
-              <td className="border px-4 py-2">{userData.Username}</td>
-            </tr>
-
-            <tr>
-              <td className="border px-4 py-2 font-semibold">Password:</td>
-              <td className="border px-4 py-2">*</td>
-            </tr>
-          </tbody>
-        </table>
-        <div className="p-4">
-          <button
-            onClick={openModal}
-            className="w-full bg-blue-500 text-white font-bold rounded py-2 cursor-pointer"
-          >
-            EDIT
-          </button>
-          {isModalOpen && (
-            <ProfileAdminEditForm
-              editFormData={editFormData}
-              handleEditSubmit={handleEditSubmit}
-              closeModal={closeModal}
-              handleChange={handleChange}
-              newPassword={newPassword}
-              setNewPassword={setNewPassword}
-            />
-          )}
-        </div>
-      </div>
-    </div>
   );
 }

@@ -27,7 +27,7 @@ export default function ClientTypesTable({ clientTypes, handleDeleteClick, handl
               <td className="border px-4 py-2 text-center">{clientType.type}</td>
               <td className="border px-4 py-2 text-center">{clientType.remarks}</td>
 
-              <td className="border px-4 py-2 text-center flex">
+              <td className="border px-4 py-2 text-center">
               <button
                  title="Modify"
                  className="text-blue-500 hover:underline ml-2 font-bold"

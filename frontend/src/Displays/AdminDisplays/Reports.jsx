@@ -189,7 +189,7 @@ export default function Reports() {
     const backgroundColor = labels.map(() => generateRandomColor());
     return {
       labels,
-      datasets: [{ label: "Records per Unit", data, backgroundColor }],
+      datasets: [{ label: "Records by Unit", data, backgroundColor }],
     };
   };
 
@@ -213,7 +213,7 @@ export default function Reports() {
                 <div>
                   <label
                     htmlFor="yearFilter"
-                    className="text-gray-700 font-medium"
+                    className="text-gray-700 font-medium "
                   >
                     Filter by Year Received:{" "}
                   </label>
@@ -224,13 +224,13 @@ export default function Reports() {
                     onChange={(e) =>
                       setFilterYearReceived(Number(e.target.value))
                     }
-                    className="border w-16 p-1 rounded focus:ring-blue-500 focus:border-blue-500 text-blue-600"
+                    className="border w-16 p-1 rounded focus:ring-blue-500 focus:border-blue-500 text-blue-600 hover:border-blue-700"
                   />
                 </div>
                 <div>
                   <label
                     htmlFor="monthFilter"
-                    className="text-gray-700 font-medium"
+                    className="text-gray-700 font-medium "
                   >
                     Filter by Month Received:{" "}
                   </label>

@@ -94,7 +94,7 @@ export default function CommunicationsAdminTable({
   //sa filtering function for CLIENT/INSTITUTION TYPE//
 
   return (
-    <div className="relative">
+    <div className="relative p-22">
       <table className="min-w-full leading-normal">
         <thead className="bg-gray-200 sticky top-0">
           <tr className="bg-gray-400 ">

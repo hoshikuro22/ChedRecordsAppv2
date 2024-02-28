@@ -75,7 +75,7 @@ export default function NormalSidebar() {
                     href="/normal/ncommunications"
                     className={`py-1 px-2 rounded flex gap-3 items-center ${
                       location.pathname === "/normal/ncommunications"
-                        ? "bg-gray-500"
+                        ? "bg-gray-500 hover:bg-gray-700 font-bold"
                         : "hover:bg-gray-700"
                     }`}
                   >
@@ -91,7 +91,7 @@ export default function NormalSidebar() {
                     href="/normal/nreports"
                     className={`py-1 px-2 rounded flex gap-3 items-center ${
                       location.pathname === "/normal/nreports"
-                        ? "bg-gray-500"
+                        ? "bg-gray-500 hover:bg-gray-700 font-bold"
                         : "hover:bg-gray-700"
                     }`}
                   >

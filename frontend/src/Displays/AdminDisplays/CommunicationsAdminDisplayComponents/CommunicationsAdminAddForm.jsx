@@ -158,7 +158,7 @@ export default function CommunicationsAdminAddForm({
                 </div>
 
                 <div className="flex flex-col">
-                  <label className="mb-1 text-sm font-semibold">Unit</label>
+                  <label className="mb-1 text-sm font-semibold">Unit <strong>(automatic)</strong></label>
                   <select
                     disabled
                     name="unit"

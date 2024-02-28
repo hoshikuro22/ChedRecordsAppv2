@@ -74,12 +74,14 @@ export default function CommunicationsNormalMoreDetails({
               </tbody>
             </table>
 
-            <button
-              className="mt-4 px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600 transition duration-300"
-              onClick={() => setInfoModalOpen(false)}
-            >
-              Close
-            </button>
+            <div>
+              <button
+                className="flex ml-auto mt-4 px-4 py-2 text-white bg-red-500 rounded-lg hover:bg-red-600 transition duration-300"
+                onClick={() => setInfoModalOpen(false)}
+              >
+                Close
+              </button>
+            </div>
           </div>
         </div>
       )}

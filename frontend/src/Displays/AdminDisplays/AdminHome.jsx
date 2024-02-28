@@ -183,10 +183,102 @@ export default function AdminHome() {
   };
 
   return (
-    <div className="h-auto ml-5 ">
-      <div className="container mx-auto flex-row ">
-        <h1 className="text-3xl font-semibold text-gray-800 mb-1">Dashboard</h1>
-        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-36">
+    <div className="h-auto ml-5">
+      <div className="container mx-auto flex-row">
+        <h1 className="text-2xl font-semibold text-gray-500 mb-1 underline">
+          Dashboard
+        </h1>
+        {/* Second Row - Three Smaller Sections */}
+        <div className="grid grid-cols-4 gap-6 mt-4">
+          <div className="bg-white rounded-lg shadow-lg p-2 border border-gray-300 hover:border-green-500 transition-all">
+            {/* Content for the first small section */}
+
+            <div className="flex items-center space-x-4">
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-semibold text-gray-600">
+                  Daily Records
+                </p>
+                <p className="text-2xl font-bold text-indigo-800 mb-1 flex gap-4 mt-2">
+                  <span className="text-4xl leading-loose text-indigo-500">
+                  <FaEnvelope />
+                  </span>{" "}
+                  {clientCount} Records
+                </p>
+                {/* <p className="font-bold w-28 p-2 text-green-500 rounded">
+                  Clients:{" "}
+                </p> */}
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-lg shadow-lg p-2 border border-gray-300 hover:border-green-500 transition-all">
+            {/* Content for the second small section */}
+
+            <div className="flex items-center space-x-4">
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-semibold text-gray-600">
+                  Weekly Records
+                </p>
+                <p className="text-2xl font-bold text-indigo-800 mb-1 flex gap-4 mt-2">
+                  <span className="text-4xl leading-loose text-indigo-500">
+                  <FaEnvelope />
+                  </span>{" "}
+                  {clientCount} Records
+                </p>
+                {/* <p className="font-bold w-28 p-2 text-green-500 rounded">
+                  Clients:{" "}
+                </p> */}
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-lg shadow-lg p-2 border border-gray-300 hover:border-green-500 transition-all">
+            {/* Content for the third small section */}
+
+            <div className="flex items-center space-x-4">
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-semibold text-gray-600">
+                  Monthly Records
+                </p>
+                <p className="text-2xl font-bold text-indigo-800 mb-1 flex gap-4 mt-2">
+                  <span className="text-4xl leading-loose text-indigo-500">
+                  <FaEnvelope />
+                  </span>{" "}
+                  {clientCount} Records
+                </p>
+                {/* <p className="font-bold w-28 p-2 text-green-500 rounded">
+                  Clients:{" "}
+                </p> */}
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-lg shadow-lg p-2 border border-gray-300 hover:border-green-500 transition-all">
+            {/* Content for the fourth small section */}
+
+            <div className="flex items-center space-x-4">
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-semibold text-gray-600">
+                  Yearly Records
+                </p>
+                <p className="text-2xl font-bold text-indigo-800 mb-1 flex gap-4 mt-2">
+                  <span className="text-4xl leading-loose text-indigo-500">
+                  <FaEnvelope />
+                  </span>{" "}
+                  {clientCount} Records
+                </p>
+                {/* <p className="font-bold w-28 p-2 text-green-500 rounded">
+                  Clients:{" "}
+                </p> */}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-6">
+          {/* First Row - Two Large Sections */}
+
+          {/* Content for the first large section */}
           <div className="bg-white rounded-lg shadow-lg p-2 border border-gray-300 hover:border-indigo-600 transition-all">
             <div className="flex items-center space-x-4">
               <div className="flex-1 min-w-0">
@@ -210,7 +302,7 @@ export default function AdminHome() {
 
             {communicationdropdownSelection === "By Clients" ? (
               <TEChart
-                style={{ width: "80px", height: "80px" }}
+                style={{ width: "50px", height: "50px" }}
                 type="pie"
                 // types are : bar, line, doughnut, pie, polarArea, radar
                 data={documentByClients}
@@ -231,7 +323,7 @@ export default function AdminHome() {
               />
             ) : communicationdropdownSelection === "By Filing Category" ? (
               <TEChart
-                style={{ width: "80px", height: "80px" }}
+                style={{ width: "50px", height: "50px" }}
                 type="pie"
                 data={documentByDocumentTypes}
                 options={{
@@ -252,7 +344,7 @@ export default function AdminHome() {
               />
             ) : (
               <TEChart
-                style={{ width: "80px", height: "80px" }}
+                style={{ width: "50px", height: "50px" }}
                 type="bar"
                 data={documentStatusCounts}
                 options={{
@@ -273,6 +365,7 @@ export default function AdminHome() {
             )}
           </div>
 
+          {/* Content for the second large section */}
           <div className="bg-white rounded-lg shadow-lg p-2 border border-gray-300 hover:border-green-500 transition-all">
             <div className="flex items-center space-x-4">
               <div className="flex-1 min-w-0">
@@ -285,39 +378,17 @@ export default function AdminHome() {
                   </span>{" "}
                   {clientCount} Clients
                 </p>
-                <p className="font-bold w-28 p-2 text-green-500 rounded">
-                  Client Types:{" "}
-                </p>
+                {/* <p className="font-bold w-28 p-2 text-green-500 rounded">
+                  Clients:{" "}
+                </p> */}
               </div>
             </div>
             <TEChart
-              style={{ width: "80px", height: "80px" }}
+              style={{ width: "50px", height: "50px" }}
               type="pie"
               data={clientTypeCounts}
             />
           </div>
-
-          {/* <div href="/admin/chedclients" className="bg-white rounded-lg shadow-lg p-6 border border-gray-300 hover:border-green-500 transition-all">
-          <div className="flex items-center space-x-4">
-         <div className="flex-1 min-w-0">
-           <p className="text-sm font-semibold text-gray-600">
-             Total CHED Clients
-           </p>
-           <p className="text-2xl font-bold text-gray-800 mb-10 flex gap-4 mt-2">
-              <span className="text-4xl leading-loose text-green-500">
-               <FaUsers />
-              </span> {clientCount} Clients
-            </p>
-           <p className="font-bold w-28 p-2  rounded">Client Types: </p>
-          </div>
-        </div>
-            <TEChart
-            style={{ width: "100px", height: "100px" }}
-              type="bar"
-              // types are : bar, line, doughnut, pie, polarArea, radar
-              data={clientNameCounts}
-            />
-          </div> */}
         </div>
       </div>
     </div>
