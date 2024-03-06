@@ -19,7 +19,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: ["http://192.168.11.126:5173"],
+    origin: ["http://localhost:5173"],
     methods: ["POST", "GET", "DELETE", "PUT"],
     credentials: true,
   })
@@ -56,6 +56,19 @@ const verifyUser = (req, res, next) => {
     });
   }
 };
+
+// const allowedOrigins = [
+//   "http://localhost:3000",
+//   "http://192.168.11.126:5173"
+// ];
+
+// app.use((req, res, next) => {
+//   const referer = req.get("Referer");
+//   if (!referer || !allowedOrigins.includes(new URL(referer).origin)) {
+//     return res.status(403).send("Forbidden");
+//   }
+//   next();
+// });
 
 app.get("/", verifyUser, (req, res) => {
   return res.json({
@@ -210,6 +223,8 @@ app.use("/", listofpersonnelsRoutes);
 app.use("/", addaccountsRoutes);
 ////
 app.use("/", activitylogRoutes);
+
+
 
 app.get("/logout", (req, res) => {
   res.clearCookie("token");

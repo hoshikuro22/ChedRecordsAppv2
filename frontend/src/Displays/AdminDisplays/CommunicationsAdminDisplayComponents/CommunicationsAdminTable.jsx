@@ -28,7 +28,7 @@ export default function CommunicationsAdminTable({
       case "No Action":
         return "text-black";
       default:
-        return ""; 
+        return "";
     }
   };
   //sa filtering function for STATUS//
@@ -111,7 +111,7 @@ export default function CommunicationsAdminTable({
                     : "Client Name"}
                 </button>
                 {showClientNameFilterDropdown && (
-                  <div className="origin-top-right absolute right-0 w-auto rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none h-96 overflow-auto">
+                  <div className="origin-top-right absolute left-0 w-auto rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none h-96 overflow-auto">
                     <div className="py-1">
                       <button
                         onClick={() => handleSelectClientNameFilter("")} // Clears the filter
@@ -119,7 +119,7 @@ export default function CommunicationsAdminTable({
                           selectedClientNameFilter === ""
                             ? "bg-gray-200 text-gray-900"
                             : "text-gray-700"
-                        } block px-1 py-2 text-sm w-full text-center`}
+                        } block px-1 py-2 text-sm w-full text-left hover:bg-gray-500`}
                       >
                         All
                       </button>
@@ -133,7 +133,7 @@ export default function CommunicationsAdminTable({
                             selectedClientNameFilter === client.client_name
                               ? "bg-gray-200 text-gray-900"
                               : "text-gray-700"
-                          } block px-1 py-2 text-sm w-full text-center hover:bg-gray-500`}
+                          } block px-1 py-2 text-sm w-full text-left hover:bg-gray-500`}
                         >
                           {client.client_name}
                         </button>
@@ -166,7 +166,7 @@ export default function CommunicationsAdminTable({
                           selectedUnitFilter === ""
                             ? "bg-gray-200 text-gray-900"
                             : "text-gray-700"
-                        } block px-1 py-2 text-sm w-full text-center hover:bg-gray-500`}
+                        } block px-1 py-2 text-sm w-full text-left hover:bg-gray-500`}
                       >
                         All
                       </button>
@@ -178,7 +178,7 @@ export default function CommunicationsAdminTable({
                             selectedUnitFilter === unit.type
                               ? "bg-gray-200 text-gray-900"
                               : "text-gray-700"
-                          } block px-1 py-2 text-sm w-full text-center hover:bg-gray-500`}
+                          } block px-1 py-2 text-sm w-full text-left hover:bg-gray-500`}
                         >
                           {unit.type}
                         </button>
@@ -195,10 +195,10 @@ export default function CommunicationsAdminTable({
                   type="button"
                   className="inline-flex justify-center w-44 px-2 py-1 text-black bg-gray-400 rounded-lg hover:bg-gray-500 transition duration-300"
                 >
-                  {selectedTypeFilter ? selectedTypeFilter : "Filing Category"}
+                  {selectedTypeFilter ? selectedTypeFilter : "Filing Category"} 
                 </button>
                 {showTypeFilterDropdown && (
-                  <div className="origin-top-right absolute right-0 flex w-auto rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none h-96 overflow-auto ">
+                  <div className="origin-top-right absolute left-0 flex w-auto rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none h-96 overflow-auto ">
                     <div className="py-1">
                       <button
                         onClick={() => handleSelectTypeFilter("")} // Clears the filter
@@ -206,7 +206,7 @@ export default function CommunicationsAdminTable({
                           selectedTypeFilter === ""
                             ? "bg-gray-200 text-gray-900 "
                             : "text-gray-700"
-                        } block px-1 py-2 text-sm w-full text-center hover:bg-gray-500 `}
+                        } block px-1 py-2 text-sm w-full text-left hover:bg-gray-500 `}
                       >
                         All
                       </button>
@@ -218,7 +218,7 @@ export default function CommunicationsAdminTable({
                             selectedTypeFilter === type.doc_type_ID
                               ? "bg-gray-200 text-gray-900"
                               : "text-gray-700"
-                          } block px-1 py-2 text-sm w-full text-center hover:bg-gray-500`}
+                          } block px-1 py-2 text-sm w-full text-left hover:bg-gray-500`}
                         >
                           {type.type}
                         </button>
@@ -251,7 +251,7 @@ export default function CommunicationsAdminTable({
                   </button>
                 </div>
                 {showStatusFilterDropdown ? (
-                  <div className="origin-top-right absolute right-0 mt-2 w-40 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                  <div className="origin-top-right absolute left-0 mt-2 w-40 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                     <div className="py-1">
                       <button
                         onClick={() => handleSelectStatusFilter("")}
@@ -367,7 +367,7 @@ export default function CommunicationsAdminTable({
                     .includes(searchQuery.toLowerCase()))
             )
             .map((document) => (
-              <tr key={document.doc_ID} className="">
+              <tr key={document.doc_ID} className="hover:bg-gray-100">
                 {/* <td className="border px-4 py-2 text-center">{document.doc_ID}</td> */}
                 <td className="border px-3 py-2 text-left">
                   {document.client_name}
@@ -383,11 +383,15 @@ export default function CommunicationsAdminTable({
                   {document.date_received}
                 </td>
                 {/* <td className="border px-4 py-2 text-left">{document.date_released}</td> */}
-                <td className={`border px-3 py-2 text-left font-semibold ${getStatusColorClass(document.status)}`}>
+                <td
+                  className={`border px-3 py-2 text-left font-semibold ${getStatusColorClass(
+                    document.status
+                  )}`}
+                >
                   {document.status}
                 </td>
                 {/* <td className="border px-3 py-2 text-left"> */}
-                  {/* {document.remarks} */}
+                {/* {document.remarks} */}
                 {/* </td> */}
 
                 <td className="border px-4 py-2 text-center">
@@ -410,11 +414,11 @@ export default function CommunicationsAdminTable({
                     <MdEdit size="35px" />
                   </button>
                   {/* <button
-            className="text-red-500 hover:underline font-bold"
-            onClick={() => handleDeleteClick(document.doc_ID)}
-          >
-            Delete
-          </button> */}
+                    className="text-red-500 hover:underline font-bold"
+                    onClick={() => handleDeleteClick(document.doc_ID)}
+                  >
+                    Delete
+                  </button> */}
                   <button
                     title="More Details"
                     className="text-gray-500 hover:underline font-bold"
@@ -454,7 +458,6 @@ const FileLink = ({ item }) => {
       try {
         const response = await makeRequest.get(fileUrl);
 
-        // You may need to adjust the condition based on your API response
         if (!response.ok) {
           setFileUrl(`communicationfiles/${item.file}`);
         }

@@ -104,7 +104,7 @@ const FileLink = ({ item }) => {
       try {
         const response = await makeRequest.get(fileUrl);
 
-        if (!response.ok) {
+        if (response.ok) {
           setFileUrl(`communicationfiles/${item.file}`);
         }
       } catch (error) {
@@ -114,7 +114,7 @@ const FileLink = ({ item }) => {
     };
 
     checkFile();
-  }, [item.file, fileUrl]);
+  }, [item.file]);
 
   return (
     <a

@@ -268,7 +268,7 @@ export default function AddAccount() {
   };
 
   return (
-    <div className="h-auto mt-2 p-4">
+    <div className="h-auto mt-2 p-4 ml-5">
       <h1 className="font-semibold text-2xl mb-4"></h1>
 
       {/* ADD FORM */}

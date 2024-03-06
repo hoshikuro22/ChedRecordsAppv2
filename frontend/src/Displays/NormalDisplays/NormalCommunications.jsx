@@ -245,7 +245,7 @@ export default function NormalCommunications() {
   };
 
   return (
-    <div className="h-auto mt-2 p-1 ml-1">
+    <div className="h-auto mt-2 p-1 ml-5">
       <CommunicationsNormalSearchBar
         handleSearchChange={handleSearchChange}
         searchQuery={searchQuery}

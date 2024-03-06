@@ -5,7 +5,7 @@ import {
   BsFillPersonLinesFill,
 } from "react-icons/bs";
 import { IoMdPersonAdd, IoIosFolder } from "react-icons/io";
-import { GoOrganization } from "react-icons/go";
+import { FaCircleUser } from "react-icons/fa6";
 import { FaClockRotateLeft } from "react-icons/fa6";
 import { BiMessageSquare, BiSolidReport, BiLogOut } from "react-icons/bi";
 import axios from "axios";
@@ -105,7 +105,7 @@ export default function AdminSidebar() {
                         : "hover:bg-gray-700"
                     }`}
                   >
-                    <GoOrganization />
+                   <FaCircleUser />
                     CHED Clients
                   </a>
                 </li>

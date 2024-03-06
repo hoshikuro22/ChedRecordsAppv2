@@ -55,10 +55,10 @@ export default function AdminPage() {
   }, []);
 
   return (
-    <div>
+    <div className="bg-gray-100">
       <AdminHeader />
       {auth ? (
-        <div className="h-auto min-h-screen">
+        <div className="h-auto min-h-screen ">
           {ifAdmin ? (
             <div className="h-auto">
               <AdminSidebar />

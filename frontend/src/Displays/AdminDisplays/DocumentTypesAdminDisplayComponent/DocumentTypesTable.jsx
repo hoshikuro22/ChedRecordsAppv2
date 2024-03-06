@@ -23,7 +23,7 @@ export default function DocumentTypesTable({ documentTypes, handleDeleteClick, h
         </thead>
         <tbody>
           {currentdocumentTypes.map((documentType, index) => (
-            <tr key={index}>
+            <tr key={index} className='hover:bg-gray-100'>
               {/* <td className="border px-4 py-2 text-center">{documentType.Doc_type_ID}</td> */}
               <td className="border px-4 py-2 text-left">{documentType.type}</td>
               <td className="border px-4 py-2 text-center">{documentType.remarks}</td>

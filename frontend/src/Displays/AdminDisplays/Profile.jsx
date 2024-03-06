@@ -121,7 +121,7 @@ export default function Profile() {
   </h2>
   <table className="min-w-full leading-normal">
     <thead className="bg-gray-400">
-    <tr className="bg-gray-400 ">
+    <tr className=" ">
         <th className="border px-3 py-2">User ID</th>
         <th className="border px-3 py-2">User Type ID</th>
         <th className="border px-3 py-2">First Name</th>
@@ -132,7 +132,7 @@ export default function Profile() {
         <th className="border px-3 py-2">Password</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody className="bg-white">
       <tr>
         <td className="border px-3 py-2">{userData.User_ID}</td>
         <td className="border px-3 py-2">{userData.User_type_ID}</td>

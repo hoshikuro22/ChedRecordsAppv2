@@ -6,7 +6,7 @@ const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
   password: '',
-  database: 'chedrmis', // Update with your actual database name
+  database: 'chedrmis',
 });
 
 router.get('/getCommunicationReports', (req, res) => {

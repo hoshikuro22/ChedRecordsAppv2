@@ -90,7 +90,7 @@ export default function ChedClientsAdminTable({
                 client.client_type.toLowerCase().includes(searchQuery.toLowerCase()))
             ))
             .map((client) => (
-              <tr key={client.client_id}>
+              <tr key={client.client_id} className='hover:bg-gray-100'>
                 {/* <td className="border px-3 py-2 text-left">{client.client_id}</td> */}
                 <td className="border px-3 py-2 text-left">{client.client_name}</td>
                 <td className="border px-3 py-2 text-left">{client.client_type}</td>

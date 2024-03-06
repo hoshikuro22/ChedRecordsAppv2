@@ -66,7 +66,7 @@ export default function CommunicationsAdminEditForm2({
           </div>
 
           <div className="flex flex-col">
-            <label className="mb-1 text-sm font-bold">Remarks</label>
+            <label className="mb-1 text-sm font-semibold">Remarks</label>
             <input
               type="text"
               id="remarks"
@@ -151,7 +151,21 @@ export default function CommunicationsAdminEditForm2({
               <option value="0">Pending</option>
               <option value="1">Approved</option>
               <option value="2">Disapproved</option>
+              <option value="3">No Action</option>
             </select>
+          </div>
+
+          <div className="flex flex-col">
+            <label className="mb-1 text-sm font-semibold">Tags</label>
+            <input
+              type="text"
+              id="tags"
+              name="tags"
+              placeholder="Enter Tags"
+              value={editFormData.tags}
+              onChange={handleChange}
+              className="px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300 border-blue-500"
+            />
           </div>
 
           <div className="col-span-2 ml-auto gap-">

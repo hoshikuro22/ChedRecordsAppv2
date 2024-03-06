@@ -224,7 +224,7 @@ export default function NormalReports() {
                     onChange={(e) =>
                       setFilterYearReceived(Number(e.target.value))
                     }
-                    className="border w-16 p-1 rounded focus:ring-blue-500 focus:border-blue-500 text-blue-600"
+                    className="border w-16 p-1 rounded focus:ring-blue-500 focus:border-blue-500 text-gray-600 font-semibold"
                   />
                 </div>
                 <div>
@@ -240,11 +240,11 @@ export default function NormalReports() {
                     onChange={(e) =>
                       setFilterMonthReceived(Number(e.target.value))
                     }
-                    className="border p-1 rounded focus:ring-blue-500 focus:border-blue-500 text-blue-600"
+                    className="border p-1 rounded focus:ring-blue-500 focus:border-blue-500 text-gray-600 font-semibold"
                   >
-                    <option value="">Select Month</option>
+                    <option className="text-gray-600 font-semibold" value="">Select Month</option>
                     {Array.from({ length: 12 }, (_, i) => (
-                      <option key={i + 1} value={i + 1}>
+                      <option className="text-gray-600 font-semibold" key={i + 1} value={i + 1}>
                         {new Date(0, i).toLocaleString("default", {
                           month: "long",
                         })}
@@ -265,11 +265,11 @@ export default function NormalReports() {
                     onChange={(e) =>
                       setFilterDayReceived(Number(e.target.value))
                     }
-                    className="border p-1 rounded focus:ring-blue-500 focus:border-blue-500 text-blue-600"
+                    className="border p-1 rounded focus:ring-blue-500 focus:border-blue-500 text-gray-600 font-semibold"
                   >
-                    <option value="">Select Day</option>
+                    <option className="text-gray-600 font-semibold" value="">Select Day</option>
                     {Array.from({ length: 31 }, (_, i) => (
-                      <option key={i + 1} value={i + 1}>
+                      <option className="text-gray-600 font-semibold" key={i + 1} value={i + 1}>
                         {i + 1}
                       </option>
                     ))}
@@ -290,7 +290,7 @@ export default function NormalReports() {
                     id="startDate"
                     value={startDateReceived}
                     onChange={(e) => setStartDateReceived(e.target.value)}
-                    className="border p-1 rounded focus:ring-blue-500 focus:border-blue-500 text-blue-600"
+                    className="border p-1 rounded focus:ring-blue-500 focus:border-blue-500 text-gray-600 font-semibold"
                   />
                 </div>
                 <div>
@@ -305,7 +305,7 @@ export default function NormalReports() {
                     id="endDate"
                     value={endDateReceived}
                     onChange={(e) => setEndDateReceived(e.target.value)}
-                    className="border p-1 rounded focus:ring-blue-500 focus:border-blue-500 text-blue-600"
+                    className="border p-1 rounded focus:ring-blue-500 focus:border-blue-500 text-gray-600 font-semibold"
                   />
                 </div>
               </div>
@@ -321,11 +321,11 @@ export default function NormalReports() {
                     id="unitFilter"
                     value={filterUnit}
                     onChange={(e) => setFilterUnit(e.target.value)}
-                    className="border p-1 rounded focus:ring-blue-500 focus:border-blue-500 text-blue-600"
+                    className="border p-1 rounded focus:ring-blue-500 focus:border-blue-500 text-gray-600 font-semibold"
                   >
-                    <option value="">Select Unit</option>
+                    <option className="text-gray-600 font-semibold" value="">Select Unit</option>
                     {unitOptions.map((unit) => (
-                      <option key={unit.ID} value={unit.ID}>
+                      <option className="text-gray-600 font-semibold" key={unit.ID} value={unit.ID}>
                         {unit.type}
                       </option>
                     ))}
@@ -343,11 +343,11 @@ export default function NormalReports() {
                     id="documentTypeFilter"
                     value={filterDocumentType}
                     onChange={(e) => setFilterDocumentType(e.target.value)}
-                    className="border p-1 rounded focus:ring-blue-500 focus:border-blue-500 text-blue-600"
+                    className="border p-1 rounded focus:ring-blue-500 focus:border-blue-500 text-gray-600 font-semibold"
                   >
-                    <option value="">Select Filing Category</option>
+                    <option className="text-gray-600 font-semibold" value="">Select Filing Category</option>
                     {documentTypeOptions.map((document_type) => (
-                      <option key={document_type.ID} value={document_type.ID}>
+                      <option className="text-gray-600 font-semibold" key={document_type.ID} value={document_type.ID}>
                         {document_type.type}
                       </option>
                     ))}
@@ -365,11 +365,11 @@ export default function NormalReports() {
                     id="statusFilter"
                     value={filterStatus}
                     onChange={(e) => setFilterStatus(e.target.value)}
-                    className="border p-1 rounded focus:ring-blue-500 focus:border-blue-500 text-blue-600"
+                    className="border p-1 rounded focus:ring-blue-500 focus:border-blue-500 text-gray-600 font-semibold"
                   >
-                    <option value="">Select Status</option>
+                    <option className="text-gray-600 font-semibold" value="">Select Status</option>
                     {statusOptions.map((status) => (
-                      <option key={status.ID} value={status.ID}>
+                      <option className="text-gray-600 font-semibold" key={status.ID} value={status.ID}>
                         {status.type}
                       </option>
                     ))}

@@ -85,6 +85,13 @@ export default function Reports() {
   const [filterStatus, setFilterStatus] = useState("");
   // const [filterPersonnel, setFilterPersonnel] = useState("");
 
+  // for dymanic search for filter
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
   useEffect(() => {
     makeRequest
       .get("/getDocuments")
@@ -95,7 +102,50 @@ export default function Reports() {
         console.error("Error fetching documents:", error);
       });
   }, []);
-
+  const handlePrint = () => {
+    const printWindow = window.open("", "_blank");
+    printWindow.document.write("<html><head><title>Print</title>");
+    printWindow.document.write(
+      '<link rel="stylesheet" type="text/css" href="print-styles.css"></head>'
+    );
+    printWindow.document.write("<body>");
+    printWindow.document.write('<table class="min-w-full leading-normal">');
+    printWindow.document.write('<thead class="bg-gray-200 sticky top-0">');
+    printWindow.document.write('<tr>');
+    printWindow.document.write('<th class="text-gray-600 text-left">Client Name</th>');
+    printWindow.document.write('<th class="text-gray-600 text-left">Assigned Personnel</th>');
+    printWindow.document.write('<th class="text-gray-600 text-left p-2">Unit</th>');
+    printWindow.document.write('<th class="text-gray-600 text-left p-2">Filing Category</th>');
+    printWindow.document.write('<th class="text-gray-600 text-left p-2">Date Received</th>');
+    printWindow.document.write('<th class="text-gray-600 text-left p-2">Status</th>');
+    printWindow.document.write('<th class="text-gray-600 text-left p-2">Tags</th>');
+    printWindow.document.write('<th class="text-gray-600 text-left p-2">File</th>');
+    printWindow.document.write('</tr>');
+    printWindow.document.write('</thead>');
+    printWindow.document.write('<tbody>');
+  
+    filteredDocuments.forEach((document) => {
+      printWindow.document.write('<tr class="border-b border-gray-200 hover:bg-gray-100">');
+      printWindow.document.write(`<td class="p-1">${document.client_name}</td>`);
+      printWindow.document.write('<td class="p-1">');
+      printWindow.document.write(`${document.contact_firstName} ${document.contact_lastName}`);
+      printWindow.document.write('</td>');
+      printWindow.document.write(`<td class="p-1">${document.unit}</td>`);
+      printWindow.document.write(`<td class="p-1">${document.document_type}</td>`);
+      printWindow.document.write(`<td class="p-1">${document.date_received}</td>`);
+      printWindow.document.write(`<td class="p-1">${document.status}</td>`);
+      printWindow.document.write(`<td class="p-1">${document.tags}</td>`);
+      printWindow.document.write(`<td class="p-1">${document.file}</td>`);
+  
+      printWindow.document.write('</td>');
+      printWindow.document.write('</tr>');
+    });
+  
+    printWindow.document.write('</tbody>');
+    printWindow.document.write('</table></body></html>');
+    printWindow.document.close();
+    printWindow.print();
+  };
   const filteredDocuments = documents.filter((doc) => {
     const dateReceived = new Date(doc.date_received);
     const year = dateReceived.getFullYear();
@@ -111,7 +161,21 @@ export default function Reports() {
         new Date(doc.date_received) <= new Date(endDateReceived)) &&
       (!filterUnit || doc.unit === filterUnit) &&
       (!filterDocumentType || doc.document_type === filterDocumentType) &&
-      (!filterStatus || doc.status === filterStatus)
+      (!filterStatus || doc.status === filterStatus) &&
+      (!searchQuery ||
+        doc.client_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        doc.contact_lastName
+          .toLowerCase()
+          .includes(searchQuery.toLowerCase()) ||
+        doc.contact_firstName
+          .toLowerCase()
+          .includes(searchQuery.toLowerCase()) ||
+        doc.unit.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        doc.document_type.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        doc.date_received.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        doc.status.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        doc.tags.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        doc.file.toLowerCase().includes(searchQuery.toLowerCase()))
       // (!filterPersonnel || doc.list_personnel === filterPersonnel)
     );
   });
@@ -200,12 +264,13 @@ export default function Reports() {
     let b = Math.floor(Math.random() * 256);
     return `rgba(${r}, ${g}, ${b}, 0.5)`;
   };
+
   return (
     <div className="container mx-auto p-4 ml-1 mr-1 ">
       <div className="grid grid-cols-4 gap-4 ">
         {/* TABLE 1 - Occupying 3/4th of the space */}
-        <div className="col-span-3 bg-gray-100 overflow-auto border-black border">
-          <div className="p-4 bg-white shadow rounded">
+        <div className="col-span-3 bg-gray-100 overflow-auto border-gray-300 border rounded shadow-lg">
+          <div className="p-4 bg-white  ">
             {/* Filter selection and Table */}
             <div className="flex flex-col">
               {/* Filter by Year, Month, Day */}
@@ -224,7 +289,7 @@ export default function Reports() {
                     onChange={(e) =>
                       setFilterYearReceived(Number(e.target.value))
                     }
-                    className="border w-16 p-1 rounded focus:ring-blue-500 focus:border-blue-500 text-blue-600 hover:border-blue-700"
+                    className="border w-16 p-1 rounded focus:ring-blue-500 focus:border-blue-500 text-gray-600 font-semibold"
                   />
                 </div>
                 <div>
@@ -240,11 +305,17 @@ export default function Reports() {
                     onChange={(e) =>
                       setFilterMonthReceived(Number(e.target.value))
                     }
-                    className="border p-1 rounded focus:ring-blue-500 focus:border-blue-500 text-blue-600"
+                    className="border p-1 rounded focus:ring-blue-500 focus:border-blue-500 text-gray-600 font-semibold"
                   >
-                    <option value="">Select Month</option>
+                    <option className="text-gray-600 font-semibold" value="">
+                      Select Month
+                    </option>
                     {Array.from({ length: 12 }, (_, i) => (
-                      <option key={i + 1} value={i + 1}>
+                      <option
+                        className="text-gray-600 font-semibold"
+                        key={i + 1}
+                        value={i + 1}
+                      >
                         {new Date(0, i).toLocaleString("default", {
                           month: "long",
                         })}
@@ -265,11 +336,17 @@ export default function Reports() {
                     onChange={(e) =>
                       setFilterDayReceived(Number(e.target.value))
                     }
-                    className="border p-1 rounded focus:ring-blue-500 focus:border-blue-500 text-blue-600"
+                    className="border p-1 rounded focus:ring-blue-500 focus:border-blue-500 text-gray-600 font-semibold"
                   >
-                    <option value="">Select Day</option>
+                    <option className="text-gray-600 font-semibold" value="">
+                      Select Day
+                    </option>
                     {Array.from({ length: 31 }, (_, i) => (
-                      <option key={i + 1} value={i + 1}>
+                      <option
+                        className="text-gray-600 font-semibold"
+                        key={i + 1}
+                        value={i + 1}
+                      >
                         {i + 1}
                       </option>
                     ))}
@@ -290,7 +367,7 @@ export default function Reports() {
                     id="startDate"
                     value={startDateReceived}
                     onChange={(e) => setStartDateReceived(e.target.value)}
-                    className="border p-1 rounded focus:ring-blue-500 focus:border-blue-500 text-blue-600"
+                    className="border p-1 rounded focus:ring-blue-500 focus:border-blue-500 text-gray-600 font-semibold"
                   />
                 </div>
                 <div>
@@ -305,7 +382,7 @@ export default function Reports() {
                     id="endDate"
                     value={endDateReceived}
                     onChange={(e) => setEndDateReceived(e.target.value)}
-                    className="border p-1 rounded focus:ring-blue-500 focus:border-blue-500 text-blue-600"
+                    className="border p-1 rounded focus:ring-blue-500 focus:border-blue-500 text-gray-600 font-semibold"
                   />
                 </div>
               </div>
@@ -321,11 +398,17 @@ export default function Reports() {
                     id="unitFilter"
                     value={filterUnit}
                     onChange={(e) => setFilterUnit(e.target.value)}
-                    className="border p-1 rounded focus:ring-blue-500 focus:border-blue-500 text-blue-600"
+                    className="border p-1 rounded focus:ring-blue-500 focus:border-blue-500 text-gray-600 font-semibold"
                   >
-                    <option value="">Select Unit</option>
+                    <option className="text-gray-600 font-semibold" value="">
+                      Select Unit
+                    </option>
                     {unitOptions.map((unit) => (
-                      <option key={unit.ID} value={unit.ID}>
+                      <option
+                        className="text-gray-600 font-semibold"
+                        key={unit.ID}
+                        value={unit.ID}
+                      >
                         {unit.type}
                       </option>
                     ))}
@@ -343,11 +426,17 @@ export default function Reports() {
                     id="documentTypeFilter"
                     value={filterDocumentType}
                     onChange={(e) => setFilterDocumentType(e.target.value)}
-                    className="border p-1 rounded focus:ring-blue-500 focus:border-blue-500 text-blue-600"
+                    className="border p-1 rounded focus:ring-blue-500 focus:border-blue-500 text-gray-600 font-semibold"
                   >
-                    <option value="">Select Filing Category</option>
+                    <option className="text-gray-600 font-semibold" value="">
+                      Select Filing Category
+                    </option>
                     {documentTypeOptions.map((document_type) => (
-                      <option key={document_type.ID} value={document_type.ID}>
+                      <option
+                        className="text-gray-600 font-semibold"
+                        key={document_type.ID}
+                        value={document_type.ID}
+                      >
                         {document_type.type}
                       </option>
                     ))}
@@ -365,17 +454,40 @@ export default function Reports() {
                     id="statusFilter"
                     value={filterStatus}
                     onChange={(e) => setFilterStatus(e.target.value)}
-                    className="border p-1 rounded focus:ring-blue-500 focus:border-blue-500 text-blue-600"
+                    className="border p-1 rounded focus:ring-blue-500 focus:border-blue-500 text-gray-600 font-semibold"
                   >
-                    <option value="">Select Status</option>
+                    <option className="text-gray-600 font-semibold" value="">
+                      Select Status
+                    </option>
                     {statusOptions.map((status) => (
-                      <option key={status.ID} value={status.ID}>
+                      <option
+                        className="text-gray-600 font-semibold"
+                        key={status.ID}
+                        value={status.ID}
+                      >
                         {status.type}
                       </option>
                     ))}
                   </select>
                 </div>
 
+                <div>
+                  <label
+                    htmlFor="unitFilter"
+                    className="text-gray-700 font-medium"
+                  >
+                    Search keyword:{" "}
+                  </label>
+                  <input
+                    type="text"
+                    placeholder=".  .  .  "
+                    value={searchQuery}
+                    onChange={handleSearchChange}
+                    className="px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
+                  />
+                </div>
+
+                <button className="" onClick={handlePrint}>Print Table</button>
                 {/* <div>
            <label htmlFor="personnelFilter" className="text-gray-700">Filter by Personnel: </label>
            <select
@@ -399,13 +511,20 @@ export default function Reports() {
               <table className="min-w-full leading-normal">
                 <thead className="bg-gray-200 sticky top-0">
                   <tr>
-                    <th className="text-gray-600">Client Name</th>
-                    <th className="text-gray-600">Assigned Personnel</th>
-                    <th className="text-gray-600">Unit</th>
-                    <th className="text-gray-600">Filing Category</th>
-                    <th className="text-gray-600">Date Received</th>
-                    <th className="text-gray-600">Status</th>
-                    <th className="text-gray-600">File</th>
+                    <th className="text-gray-600 text-left">Client Name</th>
+                    <th className="text-gray-600 text-left">
+                      Assigned Personnel
+                    </th>
+                    <th className="text-gray-600 text-left p-2">Unit</th>
+                    <th className="text-gray-600 text-left p-2">
+                      Filing Category
+                    </th>
+                    <th className="text-gray-600 text-left p-2">
+                      Date Received
+                    </th>
+                    <th className="text-gray-600 text-left p-2">Status</th>
+                    <th className="text-gray-600 text-left p-2">Tags</th>
+                    <th className="text-gray-600 text-left p-2">File</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -422,6 +541,7 @@ export default function Reports() {
                       <td className="p-1">{document.document_type}</td>
                       <td className="p-1">{document.date_received}</td>
                       <td className="p-1">{document.status}</td>
+                      <td className="p-1">{document.tags}</td>
                       <td className="p-1">
                         <FileLink item={document} />
                       </td>

@@ -3,6 +3,11 @@ import { useState, useEffect } from "react";
 import { FaEnvelope, FaUsers } from "react-icons/fa";
 import { TEChart } from "tw-elements-react";
 import { makeRequest } from "../../../axios";
+// import { IoIosFolder } from "react-icons/io";
+// import { BsFillPersonFill } from "react-icons/bs";
+// import { FaCalendarDay, FaCalendarWeek } from "react-icons/fa";
+// import { MdCalendarMonth } from "react-icons/md";
+// import { GiCalendarHalfYear } from "react-icons/gi";
 
 export default function AdminHome() {
   // function of Communication chart dropdown
@@ -185,14 +190,12 @@ export default function AdminHome() {
   return (
     <div className="h-auto ml-5">
       <div className="container mx-auto flex-row">
-        <h1 className="text-2xl font-semibold text-gray-500 mb-1 underline">
+        <h1 className="text-2xl font-semibold text-gray-500 mb-10 underline">
           Dashboard
         </h1>
-        {/* Second Row - Three Smaller Sections */}
-        <div className="grid grid-cols-4 gap-6 mt-4">
-          <div className="bg-white rounded-lg shadow-lg p-2 border border-gray-300 hover:border-green-500 transition-all">
-            {/* Content for the first small section */}
-
+        {/* First Row - Three Smaller Sections */}
+        {/* <div className="grid grid-cols-4 gap-6 mt-4 mb-5">
+          <div className="bg-white rounded-lg shadow-lg p-2 border border-gray-300  transition-all">
             <div className="flex items-center space-x-4">
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-semibold text-gray-600">
@@ -200,20 +203,15 @@ export default function AdminHome() {
                 </p>
                 <p className="text-2xl font-bold text-indigo-800 mb-1 flex gap-4 mt-2">
                   <span className="text-4xl leading-loose text-indigo-500">
-                  <FaEnvelope />
+                    <FaCalendarDay />
                   </span>{" "}
                   {clientCount} Records
                 </p>
-                {/* <p className="font-bold w-28 p-2 text-green-500 rounded">
-                  Clients:{" "}
-                </p> */}
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-lg p-2 border border-gray-300 hover:border-green-500 transition-all">
-            {/* Content for the second small section */}
-
+          <div className="bg-white rounded-lg shadow-lg p-2 border border-gray-300 transition-all">
             <div className="flex items-center space-x-4">
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-semibold text-gray-600">
@@ -221,20 +219,15 @@ export default function AdminHome() {
                 </p>
                 <p className="text-2xl font-bold text-indigo-800 mb-1 flex gap-4 mt-2">
                   <span className="text-4xl leading-loose text-indigo-500">
-                  <FaEnvelope />
+                    <FaCalendarWeek />
                   </span>{" "}
                   {clientCount} Records
                 </p>
-                {/* <p className="font-bold w-28 p-2 text-green-500 rounded">
-                  Clients:{" "}
-                </p> */}
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-lg p-2 border border-gray-300 hover:border-green-500 transition-all">
-            {/* Content for the third small section */}
-
+          <div className="bg-white rounded-lg shadow-lg p-2 border border-gray-300  transition-all">
             <div className="flex items-center space-x-4">
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-semibold text-gray-600">
@@ -242,20 +235,15 @@ export default function AdminHome() {
                 </p>
                 <p className="text-2xl font-bold text-indigo-800 mb-1 flex gap-4 mt-2">
                   <span className="text-4xl leading-loose text-indigo-500">
-                  <FaEnvelope />
+                    <MdCalendarMonth />
                   </span>{" "}
                   {clientCount} Records
                 </p>
-                {/* <p className="font-bold w-28 p-2 text-green-500 rounded">
-                  Clients:{" "}
-                </p> */}
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-lg p-2 border border-gray-300 hover:border-green-500 transition-all">
-            {/* Content for the fourth small section */}
-
+          <div className="bg-white rounded-lg shadow-lg p-2 border border-gray-300 transition-all">
             <div className="flex items-center space-x-4">
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-semibold text-gray-600">
@@ -263,20 +251,17 @@ export default function AdminHome() {
                 </p>
                 <p className="text-2xl font-bold text-indigo-800 mb-1 flex gap-4 mt-2">
                   <span className="text-4xl leading-loose text-indigo-500">
-                  <FaEnvelope />
+                    <GiCalendarHalfYear />
                   </span>{" "}
                   {clientCount} Records
                 </p>
-                {/* <p className="font-bold w-28 p-2 text-green-500 rounded">
-                  Clients:{" "}
-                </p> */}
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
 
-        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-6">
-          {/* First Row - Two Large Sections */}
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Second Row - Two Large Sections */}
 
           {/* Content for the first large section */}
           <div className="bg-white rounded-lg shadow-lg p-2 border border-gray-300 hover:border-indigo-600 transition-all">
@@ -292,7 +277,7 @@ export default function AdminHome() {
                   {communicationCount} Files
                 </p>
                 <button
-                  className="font-semibold cursor-pointer hover:bg-indigo-600 bg-indigo-400 w-50 p-2 border border-indigo-800 text-white hover:text-black rounded"
+                  className="hidden font-semibold cursor-pointer hover:bg-indigo-600 bg-indigo-400 w-50 p-2 border border-indigo-800 text-white hover:text-black rounded"
                   onClick={toggleCommunicationDropdown}
                 >
                   {communicationdropdownSelection}:
@@ -378,9 +363,6 @@ export default function AdminHome() {
                   </span>{" "}
                   {clientCount} Clients
                 </p>
-                {/* <p className="font-bold w-28 p-2 text-green-500 rounded">
-                  Clients:{" "}
-                </p> */}
               </div>
             </div>
             <TEChart
@@ -389,6 +371,50 @@ export default function AdminHome() {
               data={clientTypeCounts}
             />
           </div>
+
+          {/* Content for the third large section */}
+          {/* <div className="bg-white rounded-lg shadow-lg p-2 border border-gray-300 transition-all">
+            <div className="bg-white rounded-lg shadow-lg p-2 border border-gray-300 mb-2">
+              <div className="flex items-center space-x-4">
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-semibold text-gray-600">
+                    Most Document Type Stored:
+                  </p>
+                  <div className="flex item-center text-indigo-400 gap-2 text-2xl ">
+                    <IoIosFolder />
+                    <p className="text-sm font-semibold ">*Document Type*</p>
+                  </div>
+
+                  <p className="text-2xl font-bold text-indigo-800 mb-1 flex gap-4 mt-2">
+                    <span className="text-4xl leading-loose text-indigo-500">
+                      <FaEnvelope />
+                    </span>{" "}
+                    {communicationCount} Records
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-lg shadow-lg p-2 border border-gray-300 ">
+              <div className="flex items-center space-x-4">
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-semibold text-gray-600">
+                    Top Client Communications Stored:
+                  </p>
+                  <div className="flex item-center text-indigo-400 gap-2 text-2xl ">
+                    <BsFillPersonFill />
+                    <p className="text-sm font-semibold">*Client Name*</p>
+                  </div>
+                  <p className="text-2xl font-bold text-indigo-800 mb-1 flex gap-4 mt-2">
+                    <span className="text-4xl leading-loose text-indigo-500">
+                      <FaEnvelope />
+                    </span>{" "}
+                    {communicationCount} Records
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div> */}
         </div>
       </div>
     </div>

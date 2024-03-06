@@ -458,7 +458,7 @@ router.get("/getMaxDocIDShown", async (req, res) => {
           .json({ Status: "Error", Message: "Failed to fetch max Doc_ID" });
       }
 
-      const maxDocIDShown = result[0].maxDocIDShown || 0; // Ensure a default value if there's no document yet
+      const maxDocIDShown = result[0].maxDocIDShown || 0; 
       return res.status(200).json({ maxDocIDShown });
     });
   } catch (error) {
@@ -469,7 +469,7 @@ router.get("/getMaxDocIDShown", async (req, res) => {
   }
 });
 
-// sa document history fetch
+// sa document history fetch with ID
 router.get("/getDocumentHistory/:doc_ID", (req, res) => {
   const doc_ID = req.params.doc_ID;
   const sql = `
@@ -514,6 +514,49 @@ ORDER BY doc_history_ID ASC;
     return res.status(200).json(data);
   });
 });
+
+// sa document history fetch 
+router.get("/getDocumentsHistory", (req, res) => {
+  const sql = `
+    SELECT
+      CAST(dh.Doc_History_ID AS SIGNED) AS doc_history_ID,
+      dt.Type AS document_type,
+      lp.first_name as contact_firstName,
+      lp.last_name as contact_lastName,
+      lp.position as contact_position,
+      dh.doc_history_id,
+      dh.doc_id,
+      dh.doc_type_id,
+      dh.personnel_id,
+      dh.unit_id,
+      dh.status_id,
+      dh.client_id,
+      dh.file,
+      dh.date_received,
+      dh.date_released,
+      dh.remarks,
+      dh.tags,
+      s.type AS status,
+      dep.type AS unit,
+      i.client_name AS client_name
+    FROM document_history dh 
+    JOIN document_type dt ON dh.Doc_Type_ID = dt.Doc_Type_ID
+    JOIN list_personnel lp ON dh.Personnel_ID = lp.Personnel_ID
+    JOIN status s ON dh.status_id = s.status_ID
+    JOIN unit dep ON dh.unit_id = dep.unit_id
+    JOIN client i ON dh.client_id = i.client_id 
+    ORDER BY doc_history_ID ASC;
+  `;
+
+  db.query(sql, (err, data) => {
+    if (err) {
+      console.error("Error fetching document history:", err);
+      return res.status(500).json({ status: "Error", message: "Failed to fetch document history" });
+    }
+    return res.status(200).json(data);
+  });
+});
+
 
 // endpoint to get the count of Communications
 router.get("/getCommunicationCount", (req, res) => {
@@ -704,8 +747,8 @@ const moveFileToHistoryFolder = (filename, callback) => {
 // Function to insert a record into the "document_history" table
 const insertDocumentHistory = (docID, callback) => {
   const insertDocumentHistorySQL = `
-    INSERT INTO document_history (doc_history_ID, doc_ID, doc_type_ID, personnel_ID, client_ID, unit_ID, status_ID, file, date_received, date_released, remarks)
-    SELECT ?, doc_ID, doc_type_ID, personnel_ID, client_ID, unit_ID, status_ID, file, date_received, date_released, remarks
+    INSERT INTO document_history (doc_history_ID, doc_ID, doc_type_ID, personnel_ID, client_ID, unit_ID, status_ID, file, date_received, date_released, remarks, tags)
+    SELECT ?, doc_ID, doc_type_ID, personnel_ID, client_ID, unit_ID, status_ID, file, date_received, date_released, remarks, tags
     FROM document
     WHERE doc_ID = ?`;
 
@@ -865,7 +908,46 @@ router.put("/updateDocumentFile/:id", upload.single("file"), (req, res) => {
   });
 });
 
-// UPDATE FOR STAFF
+// UPDATE FOR NO FILE
+const insertDocumentHistoryNoFile = (docID, callback) => {
+  const insertDocumentHistorySQL = `
+    INSERT INTO document_history (doc_history_ID, doc_ID, doc_type_ID, personnel_ID, client_ID, unit_ID, status_ID, date_received, date_released, remarks, tags)
+    SELECT ?, doc_ID, doc_type_ID, personnel_ID, client_ID, unit_ID, status_ID, date_received, date_released, remarks, tags
+    FROM document
+    WHERE doc_ID = ?`;
+
+  const getDocHistoryIDSQL = `
+    SELECT MAX(doc_history_ID) AS maxDocHistoryID
+    FROM document_history`;
+
+  db.query(getDocHistoryIDSQL, (err, result) => {
+    if (err) {
+      console.error(err);
+      return callback(err);
+    }
+
+    const maxDocHistoryID = result[0].maxDocHistoryID;
+
+    // Check if doc_history_ID is 0, set it to 1. Otherwise, increment by 1
+    const nextDocHistoryID = maxDocHistoryID === 0 ? 1 : maxDocHistoryID + 1;
+
+    // Update the document_history table with the correct doc_history_ID
+    db.query(
+      insertDocumentHistorySQL,
+      [nextDocHistoryID, docID],
+      (err, result) => {
+        if (err) {
+          console.error(err);
+          return callback(err);
+        }
+
+        console.log("Record added to document_history table");
+        callback(null, result);
+      }
+    );
+  });
+};
+
 router.put("/updateDocumentNormal/:id", (req, res) => {
   const { id } = req.params;
   const {
@@ -929,6 +1011,16 @@ router.put("/updateDocumentNormal/:id", (req, res) => {
           .json({ Status: "Error", Message: "Document not found" });
       }
 
+         // Insert a record into the "document_history" table
+       insertDocumentHistoryNoFile(id, (err) => {
+        if (err) {
+          console.error(err);
+          return res.status(500).json({
+            Status: "Error",
+            Message: "Error adding record to document_history table",
+          })
+        }
+       })
       console.log("Document updated in the database");
       return res.status(200).json({
         Status: "Success",

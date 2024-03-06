@@ -58,7 +58,7 @@ export default function CommunicationsAdminAddForm({
                     Date Received <strong>(Month/Day/Year)</strong>
                   </label>
                   <DatePicker
-                    disabled
+                    // disabled
                     selected={formData.dateReceived}
                     onChange={(date) =>
                       handleChange({
@@ -218,8 +218,9 @@ export default function CommunicationsAdminAddForm({
                     onChange={handleChange}
                     className="px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
                   >
-                    <option value="0">Pending</option>
+                     <option value="0">Pending</option>
                     <option value="1">Approved</option>
+                   
                     <option value="2">Disapproved</option>
                     <option value="3">No Action</option>
                   </select>
@@ -229,7 +230,7 @@ export default function CommunicationsAdminAddForm({
               <div className="col-span-2 flex ml-auto">
                 <div className="flex">
                   <button className="flex gap-2 w-auto px-4 py-2 text-white font-bold bg-blue-500 rounded-lg hover:bg-blue-600 transition duration-300 ">
-                    <IoMdAdd size="25px" /> ADD
+                    <IoMdAdd size="25px" /> SAVE
                   </button>
                   <button
                     type="button"

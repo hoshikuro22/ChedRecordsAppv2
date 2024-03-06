@@ -38,7 +38,7 @@ export default function NormalPage() {
 
   return (
     
-    <div>
+    <div className="bg-gray-100">
      <NormalHeader />
       {auth ?
          <div className="h-auto min-h-screen ">

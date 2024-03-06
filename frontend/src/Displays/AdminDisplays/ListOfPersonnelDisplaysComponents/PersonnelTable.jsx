@@ -26,7 +26,7 @@ export default function PersonnelTable({ personnels, handleDeleteClick, handleEd
         </thead>
         <tbody>
           {currentPersonnels.map((personnel) => (
-            <tr key={personnel.Personnel_ID}>
+            <tr key={personnel.Personnel_ID} className='hover:bg-gray-100'>
               {/* <td className="border px-4 py-2 text-center">{personnel.Personnel_ID}</td> */}
               <td className="border px-4 py-2 text-left">{personnel.last_name}</td>
               <td className="border px-4 py-2 text-left">{personnel.first_name}</td>

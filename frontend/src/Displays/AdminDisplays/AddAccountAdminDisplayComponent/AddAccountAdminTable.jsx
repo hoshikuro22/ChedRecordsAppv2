@@ -20,7 +20,7 @@ export default function AddAccountAdminTable({ users, handleEditClick }) {
         </thead>
         <tbody>
           {users.map((user) => (
-            <tr key={user.user_ID}>
+            <tr key={user.user_ID} className="hover:bg-gray-100">
               {/* <td className="border px-4 py-2">{user.user_ID}</td> */}
               <td className="border px-4 py-2">{user.user_type}</td>
               <td className="border px-4 py-2">{user.first_name}</td>

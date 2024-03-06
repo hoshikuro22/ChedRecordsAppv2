@@ -103,21 +103,22 @@ const FileLink = ({ item }) => {
       try {
         const response = await makeRequest.get(fileUrl);
 
-        if (!response.ok) {
-          setFileUrl(`communicationfiles/${item.file}`);
+        if (response.ok) {
+          const updatedFileUrl = `communicationfiles/${item.file}`;
+          setFileUrl(updatedFileUrl);
         }
       } catch (error) {
         console.error("Error fetching file:", error);
-        setFileUrl(`communicationhistoryfiles/${item.file}`);
+        const updatedFileUrl = `communicationhistoryfiles/${item.file}`;
+        setFileUrl(updatedFileUrl);
       }
     };
 
     checkFile();
-  }, [item.file, fileUrl]);
-
+  }, [item.file]);
   return (
     <a
-      href={makeRequest.defaults.baseURL + fileUrl} // Use baseURL from axios.js
+      href={makeRequest.defaults.baseURL + fileUrl}
       target="_blank"
       rel="noopener noreferrer"
       className="text-blue-500 hover:underline"

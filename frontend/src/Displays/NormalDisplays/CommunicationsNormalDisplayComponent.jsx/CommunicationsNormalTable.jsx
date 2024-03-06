@@ -350,7 +350,7 @@ export default function CommunicationsNormalTable({
                     .includes(searchQuery.toLowerCase()))
             )
             .map((document) => (
-              <tr key={document.doc_ID}>
+              <tr key={document.doc_ID} className="hover:bg-gray-100">
                 {/* <td className="border px-4 py-2 text-center">{document.doc_ID}</td> */}
 
                 <td className="border px-3 py-2 text-left">
