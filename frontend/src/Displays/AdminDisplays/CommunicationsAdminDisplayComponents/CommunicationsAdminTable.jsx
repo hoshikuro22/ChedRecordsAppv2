@@ -7,7 +7,7 @@ import { PiListMagnifyingGlass } from "react-icons/pi";
 
 export default function CommunicationsAdminTable({
   currentItems,
-  // handleDeleteClick,
+  handleDeleteClick,
   handleInfoClick,
   handleEditFileClick,
   handleEditClick,
@@ -143,7 +143,7 @@ export default function CommunicationsAdminTable({
                 )}
               </div>
             </th>
-            <th className="px-1 py-2">Assigned Personnel</th>
+            <th className="px-1 py-2">Prepared by</th>
             <th className="px-1 py-2">
               <div className="relative inline-block">
                 <button
@@ -229,7 +229,7 @@ export default function CommunicationsAdminTable({
               </div>
             </th>
 
-            <th className="px-1 py-2">Date Received</th>
+            <th className="px-1 py-2">Date Released</th>
             {/* <th className="px-4 py-2">Date Release</th> */}
             <th className="px-1 py-2">
               <div className="relative inline-block">
@@ -380,7 +380,7 @@ export default function CommunicationsAdminTable({
                   {document.document_type}
                 </td>
                 <td className="border px-3 py-2 text-left">
-                  {document.date_received}
+                  {document.date_released}
                 </td>
                 {/* <td className="border px-4 py-2 text-left">{document.date_released}</td> */}
                 <td
@@ -413,12 +413,12 @@ export default function CommunicationsAdminTable({
                   >
                     <MdEdit size="35px" />
                   </button>
-                  {/* <button
+                  <button
                     className="text-red-500 hover:underline font-bold"
                     onClick={() => handleDeleteClick(document.doc_ID)}
                   >
                     Delete
-                  </button> */}
+                  </button>
                   <button
                     title="More Details"
                     className="text-gray-500 hover:underline font-bold"

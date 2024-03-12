@@ -5,6 +5,7 @@ import { FaEnvelope } from "react-icons/fa";
 import { RiGroupLine } from "react-icons/ri";
 import { TEChart } from "tw-elements-react";
 import { makeRequest } from "../../../axios";
+import { FaPrint } from "react-icons/fa";
 
 export default function Reports() {
   //==============FETCHING BELOW===============//
@@ -71,12 +72,17 @@ export default function Reports() {
   //==============FETCHING ABOVE===============//
 
   const [documents, setDocuments] = useState([]);
-  const [filterYearReceived, setFilterYearReceived] = useState(
-    new Date().getFullYear()
-  );
-  const [filterMonthReceived, setFilterMonthReceived] = useState(
-    new Date().getMonth() + 1
-  ); // Months are 0-indexed in JS
+
+  //  // for automatic current year
+  //   const [filterYearReceived, setFilterYearReceived] = useState(
+  //     new Date().getFullYear()
+  //   );
+  // // for automatic current month
+  // const [filterMonthReceived, setFilterMonthReceived] = useState(
+  //   new Date().getMonth() + 1
+  // ); // Months are 0-indexed in JS
+  const [filterYearReceived, setFilterYearReceived] = useState();
+  const [filterMonthReceived, setFilterMonthReceived] = useState();
   const [filterDayReceived, setFilterDayReceived] = useState("");
   const [startDateReceived, setStartDateReceived] = useState("");
   const [endDateReceived, setEndDateReceived] = useState("");
@@ -104,48 +110,82 @@ export default function Reports() {
   }, []);
   const handlePrint = () => {
     const printWindow = window.open("", "_blank");
-    printWindow.document.write("<html><head><title>Print</title>");
+    printWindow.document.write("<html><head><title>Record Reports</title>");
     printWindow.document.write(
       '<link rel="stylesheet" type="text/css" href="print-styles.css"></head>'
     );
     printWindow.document.write("<body>");
     printWindow.document.write('<table class="min-w-full leading-normal">');
     printWindow.document.write('<thead class="bg-gray-200 sticky top-0">');
-    printWindow.document.write('<tr>');
-    printWindow.document.write('<th class="text-gray-600 text-left">Client Name</th>');
-    printWindow.document.write('<th class="text-gray-600 text-left">Assigned Personnel</th>');
-    printWindow.document.write('<th class="text-gray-600 text-left p-2">Unit</th>');
-    printWindow.document.write('<th class="text-gray-600 text-left p-2">Filing Category</th>');
-    printWindow.document.write('<th class="text-gray-600 text-left p-2">Date Received</th>');
-    printWindow.document.write('<th class="text-gray-600 text-left p-2">Status</th>');
-    printWindow.document.write('<th class="text-gray-600 text-left p-2">Tags</th>');
-    printWindow.document.write('<th class="text-gray-600 text-left p-2">File</th>');
-    printWindow.document.write('</tr>');
-    printWindow.document.write('</thead>');
-    printWindow.document.write('<tbody>');
-  
+    printWindow.document.write("<tr>");
+    printWindow.document.write(
+      '<th class="text-gray-600 text-left">Client Name</th>'
+    );
+    printWindow.document.write(
+      '<th class="text-gray-600 text-left">Assigned Personnel</th>'
+    );
+    printWindow.document.write(
+      '<th class="text-gray-600 text-left p-2">Unit</th>'
+    );
+    printWindow.document.write(
+      '<th class="text-gray-600 text-left p-2">Filing Category</th>'
+    );
+    printWindow.document.write(
+      '<th class="text-gray-600 text-left p-2">Date Uploaded</th>'
+    );
+    printWindow.document.write(
+      '<th class="text-gray-600 text-left p-2">Date Released</th>'
+    );
+    printWindow.document.write(
+      '<th class="text-gray-600 text-left p-2">Status</th>'
+    );
+    printWindow.document.write(
+      '<th class="text-gray-600 text-left p-2">File</th>'
+    );
+    printWindow.document.write(
+      '<th class="text-gray-600 text-left p-2">P.I</th>'
+    );
+
+    printWindow.document.write("</tr>");
+    printWindow.document.write("</thead>");
+    printWindow.document.write("<tbody>");
+
     filteredDocuments.forEach((document) => {
-      printWindow.document.write('<tr class="border-b border-gray-200 hover:bg-gray-100">');
-      printWindow.document.write(`<td class="p-1">${document.client_name}</td>`);
+      printWindow.document.write(
+        '<tr class="border-b border-gray-200 hover:bg-gray-100">'
+      );
+      printWindow.document.write(
+        `<td class="p-1">${document.client_name}</td>`
+      );
       printWindow.document.write('<td class="p-1">');
-      printWindow.document.write(`${document.contact_firstName} ${document.contact_lastName}`);
-      printWindow.document.write('</td>');
+      printWindow.document.write(
+        `${document.contact_firstName} ${document.contact_lastName}`
+      );
+      printWindow.document.write("</td>");
       printWindow.document.write(`<td class="p-1">${document.unit}</td>`);
-      printWindow.document.write(`<td class="p-1">${document.document_type}</td>`);
-      printWindow.document.write(`<td class="p-1">${document.date_received}</td>`);
+      printWindow.document.write(
+        `<td class="p-1">${document.document_type}</td>`
+      );
+      printWindow.document.write(
+        `<td class="p-1">${document.date_received}</td>`
+      );
+      printWindow.document.write(
+        `<td class="p-1">${document.date_released}</td>`
+      );
       printWindow.document.write(`<td class="p-1">${document.status}</td>`);
-      printWindow.document.write(`<td class="p-1">${document.tags}</td>`);
       printWindow.document.write(`<td class="p-1">${document.file}</td>`);
-  
-      printWindow.document.write('</td>');
-      printWindow.document.write('</tr>');
+      printWindow.document.write(`<td class="p-1">${document.tags}</td>`);
+
+      printWindow.document.write("</td>");
+      printWindow.document.write("</tr>");
     });
-  
-    printWindow.document.write('</tbody>');
-    printWindow.document.write('</table></body></html>');
+
+    printWindow.document.write("</tbody>");
+    printWindow.document.write("</table></body></html>");
     printWindow.document.close();
     printWindow.print();
   };
+  //filtered documents
   const filteredDocuments = documents.filter((doc) => {
     const dateReceived = new Date(doc.date_received);
     const year = dateReceived.getFullYear();
@@ -280,10 +320,10 @@ export default function Reports() {
                     htmlFor="yearFilter"
                     className="text-gray-700 font-medium "
                   >
-                    Filter by Year Received:{" "}
+                    Year Received:{" "}
                   </label>
                   <input
-                    type="number"
+                    type="text"
                     id="yearFilter"
                     value={filterYearReceived}
                     onChange={(e) =>
@@ -297,7 +337,7 @@ export default function Reports() {
                     htmlFor="monthFilter"
                     className="text-gray-700 font-medium "
                   >
-                    Filter by Month Received:{" "}
+                    Month Received:{" "}
                   </label>
                   <select
                     id="monthFilter"
@@ -307,7 +347,7 @@ export default function Reports() {
                     }
                     className="border p-1 rounded focus:ring-blue-500 focus:border-blue-500 text-gray-600 font-semibold"
                   >
-                    <option className="text-gray-600 font-semibold" value="">
+                    <option className="text-gray-600 font-semibold" value=" ">
                       Select Month
                     </option>
                     {Array.from({ length: 12 }, (_, i) => (
@@ -323,7 +363,7 @@ export default function Reports() {
                     ))}
                   </select>
                 </div>
-                <div>
+                <div className="hidden">
                   <label
                     htmlFor="dayFilter"
                     className="text-gray-700 font-medium"
@@ -360,7 +400,7 @@ export default function Reports() {
                     htmlFor="startDate"
                     className="text-gray-700 font-medium"
                   >
-                    Date Received Start Date:{" "}
+                    Date Uploaded Start Date:{" "}
                   </label>
                   <input
                     type="date"
@@ -375,7 +415,7 @@ export default function Reports() {
                     htmlFor="endDate"
                     className="ml-4 text-gray-700 font-medium"
                   >
-                    Date Received End Date:{" "}
+                    Date Uploaded End Date:{" "}
                   </label>
                   <input
                     type="date"
@@ -486,8 +526,6 @@ export default function Reports() {
                     className="px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
                   />
                 </div>
-
-                <button className="" onClick={handlePrint}>Print Table</button>
                 {/* <div>
            <label htmlFor="personnelFilter" className="text-gray-700">Filter by Personnel: </label>
            <select
@@ -520,10 +558,15 @@ export default function Reports() {
                       Filing Category
                     </th>
                     <th className="text-gray-600 text-left p-2">
-                      Date Received
+                      Date Uploaded
+                    </th>
+                    <th className="text-gray-600 text-left p-2">
+                      Date Released
                     </th>
                     <th className="text-gray-600 text-left p-2">Status</th>
-                    <th className="text-gray-600 text-left p-2">Tags</th>
+                    <th className="text-gray-600 text-left p-2">
+                      Perpetual Index
+                    </th>
                     <th className="text-gray-600 text-left p-2">File</th>
                   </tr>
                 </thead>
@@ -540,6 +583,7 @@ export default function Reports() {
                       <td className="p-1">{document.unit}</td>
                       <td className="p-1">{document.document_type}</td>
                       <td className="p-1">{document.date_received}</td>
+                      <td className="p-1">{document.date_released}</td>
                       <td className="p-1">{document.status}</td>
                       <td className="p-1">{document.tags}</td>
                       <td className="p-1">
@@ -550,6 +594,13 @@ export default function Reports() {
                 </tbody>
               </table>
             </div>
+            <button
+             title="Print Record"
+              className="flex mt-5 w-auto px-4 py-2 text-white hover:text-gray-500 bg-black hover:bg-gray-800 text-2xl rounded-lg transition duration-300 "
+              onClick={handlePrint}
+            >
+              <FaPrint />
+            </button>
           </div>
         </div>
         {/* CHART 1 - Occupying the remaining 1/4th of the space */}

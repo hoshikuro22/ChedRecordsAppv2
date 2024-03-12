@@ -25,11 +25,11 @@ export default function CommunicationsAdminMoreDetails({
                   <th className="px-4 py-2">Document ID</th>
                   <th className="px-4 py-2">File</th>
                   <th className="px-4 py-2">Document Type</th>
-                  <th className="px-4 py-2">Date Received</th>
+                  <th className="px-4 py-2">Date Uploaded</th>
                   <th className="px-4 py-2">Date Released</th>
                   <th className="px-4 py-2">Status</th>
                   <th className="px-4 py-2">Remarks</th>
-                  <th className="px-4 py-2">Tags</th>
+                  <th className="px-4 py-2">Perpetual Index</th>
                   <th className="px-4 py-2">Assigned Personnel</th>
                   <th className="px-4 py-2">Document Type</th>
                 </tr>

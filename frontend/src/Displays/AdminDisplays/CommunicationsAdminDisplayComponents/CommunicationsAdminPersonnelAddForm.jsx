@@ -2,24 +2,24 @@ import PropTypes from "prop-types";
 import { IoMdAdd, IoMdClose } from "react-icons/io";
 import { CiEraser } from "react-icons/ci";
 
-export default function PersonnelAddForm({
-  formData,
-  showForm,
-  handleSubmit,
-  handleChange,
-  handleHideFormClick,
-  handleClearFormClick,
+export default function CommunicationsAdminPersonnelAddForm({
+  formDataPersonnels,
+  showFormPersonnels,
+  handleSubmitPersonnels,
+  handleChangePersonnels,
+  handleHideFormClickPersonnels,
+  handleClearFormClickPersonnels,
   handleAddPersonnelClick,
-  unitOptions,
+  unitOptionsPersonnels,
 }) {
   return (
     <div>
-      {showForm ? (
+      {showFormPersonnels ? (
         <div className="fixed inset-0 flex items-center justify-center z-50">
           <div className="absolute inset-0 bg-gray-900 opacity-75"></div>
           <div className="bg-white rounded-lg p-8 z-50">
             <h2 className="text-xl font-semibold mb-2">Add New PERSONNEL</h2>
-            <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-4">
               <div className="flex flex-col">
                 <label className="mb-1 text-sm font-semibold">First Name</label>
                 <input
@@ -28,8 +28,8 @@ export default function PersonnelAddForm({
                   id="firstName"
                   name="firstName"
                   placeholder="Enter First Name"
-                  value={formData.firstName}
-                  onChange={handleChange}
+                  value={formDataPersonnels.firstName}
+                  onChange={handleChangePersonnels}
                   className="px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300 capitalize"
                 />
               </div>
@@ -41,8 +41,8 @@ export default function PersonnelAddForm({
                   id="lastName"
                   name="lastName"
                   placeholder="Enter Last Name"
-                  value={formData.lastName}
-                  onChange={handleChange}
+                  value={formDataPersonnels.lastName}
+                  onChange={handleChangePersonnels}
                   className="px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300 capitalize"
                 />
               </div>
@@ -51,12 +51,12 @@ export default function PersonnelAddForm({
                 <select
                   required
                   name="unit"
-                  value={formData.unit}
-                  onChange={handleChange}
+                  value={formDataPersonnels.unit}
+                  onChange={handleChangePersonnels}
                   className="px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
                 >
                   <option value="">Select Unit</option>
-                  {unitOptions.map((unit) => (
+                  {unitOptionsPersonnels.map((unit) => (
                     <option key={unit.unit_ID} value={unit.unit_ID}>
                       {unit.type}
                     </option>
@@ -71,34 +71,34 @@ export default function PersonnelAddForm({
                   id="position"
                   name="position"
                   placeholder="Enter Position"
-                  value={formData.position}
-                  onChange={handleChange}
+                  value={formDataPersonnels.position}
+                  onChange={handleChangePersonnels}
                   className="px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300 capitalize"
                 />
               </div>
               <div className="flex flex-col">
                 <label className="mb-1 text-sm font-semibold">Birth Date (optional)</label>
                 <input
-                 
+             
                   type="text"
                   id="birthDate"
                   name="birthDate"
                   placeholder="Enter Birth Date"
-                  value={formData.birthDate}
-                  onChange={handleChange}
+                  value={formDataPersonnels.birthDate}
+                  onChange={handleChangePersonnels}
                   className="px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
                 />
               </div>
               <div className="flex flex-col">
                 <label className="mb-1 text-sm font-semibold">Email (optional)</label>
                 <input
-                 
+                
                   type="email"
                   id="email"
                   name="email"
                   placeholder="Enter Email"
-                  value={formData.email}
-                  onChange={handleChange}
+                  value={formDataPersonnels.email}
+                  onChange={handleChangePersonnels}
                   className="px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
                 />
               </div>
@@ -108,14 +108,14 @@ export default function PersonnelAddForm({
                 </label>
                 <input
                   title="Contact number should be up to 11 digits, only numbers"
-                
+                  required
                   type="tel"
                   pattern="[0-9]*"
                   id="contactNumber"
                   name="contactNumber"
                   placeholder="Enter Contact Number"
-                  value={formData.contactNumber}
-                  onChange={handleChange}
+                  value={formDataPersonnels.contactNumber}
+                  onChange={handleChangePersonnels}
                   className="px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
                 />
               </div>
@@ -123,43 +123,44 @@ export default function PersonnelAddForm({
               <div className="col-span-2 ml-auto gap-">
                 <div className="flex">
                   <button
-                    type="submit"
+                    onClick={handleSubmitPersonnels}
+                    type="button"
                     className="flex gap-2 w-auto px-4 py-2 text-white font-bold bg-blue-500 rounded-lg hover:bg-blue-600 transition duration-300"
                   >
-                    <IoMdAdd size="25px" /> ADD
+                    <IoMdAdd size="25px" /> SAVE
                   </button>
                   <button
                     type="button"
-                    onClick={handleHideFormClick}
+                    onClick={handleHideFormClickPersonnels}
                     className="flex gap-2 w-auto px-4 py-2 text-white font-bold bg-red-500 rounded-lg hover:bg-red-600 transition duration-300 mx-2 "
                   >
                     <IoMdClose size="25px" /> CLOSE
                   </button>
                   <button
                     type="button"
-                    onClick={handleClearFormClick}
+                    onClick={handleClearFormClickPersonnels}
                     className="flex gap-2 w-auto px-4 py-2 text-white font-bold bg-gray-500 rounded-lg hover:bg-gray-600 transition duration-300"
                   >
                     <CiEraser size="25px" /> CLEAR
                   </button>
                 </div>
               </div>
-            </form>
+            </div>
           </div>
         </div>
       ) : (
         <button
           onClick={handleAddPersonnelClick}
-          className="w-auto px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600 transition duration-300 mb-2 flex gap-2"
+          className="underline italic text-gray-500 hover:text-gray-800 hover:cursor-pointer"
         >
-          <IoMdAdd size="25px" /> Add New Personnel
+          New Assignatory?
         </button>
       )}
     </div>
   );
 }
-PersonnelAddForm.propTypes = {
-  formData: PropTypes.shape({
+CommunicationsAdminPersonnelAddForm.propTypes = {
+  formDataPersonnels: PropTypes.shape({
     unit: PropTypes.string.isRequired,
     firstName: PropTypes.string.isRequired,
     lastName: PropTypes.string.isRequired,
@@ -168,11 +169,11 @@ PersonnelAddForm.propTypes = {
     email: PropTypes.string.isRequired,
     contactNumber: PropTypes.string.isRequired,
   }),
-  showForm: PropTypes.bool.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
-  handleChange: PropTypes.func.isRequired,
-  handleHideFormClick: PropTypes.func.isRequired,
-  handleClearFormClick: PropTypes.func.isRequired,
+  showFormPersonnels: PropTypes.bool.isRequired,
+  handleSubmitPersonnels: PropTypes.func.isRequired,
+  handleChangePersonnels: PropTypes.func.isRequired,
+  handleHideFormClickPersonnels: PropTypes.func.isRequired,
+  handleClearFormClickPersonnels: PropTypes.func.isRequired,
   handleAddPersonnelClick: PropTypes.func.isRequired,
-  unitOptions: PropTypes.array.isRequired,
+  unitOptionsPersonnels: PropTypes.array.isRequired,
 };

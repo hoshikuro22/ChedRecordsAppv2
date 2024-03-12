@@ -96,7 +96,7 @@ export default function NormalSidebar() {
                     }`}
                   >
                     <BiSolidReport />
-                    Reports
+                    Record Reports
                   </a>
                 </li>
               </div>

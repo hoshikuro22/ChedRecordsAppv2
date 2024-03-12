@@ -170,7 +170,7 @@ export default function AdminSidebar() {
                     }`}
                   >
                     <BiSolidReport />
-                    Reports
+                    Records Reports
                   </a>
                 </li>
               </div>

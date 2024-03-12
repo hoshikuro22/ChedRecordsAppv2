@@ -56,7 +56,7 @@ export default function DocumentTypesEditForm({
               Cancel
             </button>
           </div>
-        </form>s
+        </form>
       </div>
     </div>
   );
