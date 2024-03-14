@@ -98,23 +98,23 @@ const getMaxTransID = async () => {
 };
 
 // Function to get the maximum Doc_Backup_ID from the "doc_backup" table
-const getNextDocBackupID = async () => {
-  return new Promise((resolve, reject) => {
-    const getMaxDocBackupIDQuery =
-      "SELECT MAX(Doc_Backup_ID) AS maxDocBackupID FROM doc_backup";
-    db.query(getMaxDocBackupIDQuery, (err, result) => {
-      if (err) {
-        console.error("Error in getMaxDocBackupIDQuery:", err);
-        reject(err);
-      } else {
-        const maxDocBackupID = result[0].maxDocBackupID || 0;
-        const nextDocBackupID = maxDocBackupID + 1;
-        console.log("maxDocBackupID:", maxDocBackupID);
-        resolve(nextDocBackupID);
-      }
-    });
-  });
-};
+// const getNextDocBackupID = async () => {
+//   return new Promise((resolve, reject) => {
+//     const getMaxDocBackupIDQuery =
+//       "SELECT MAX(Doc_Backup_ID) AS maxDocBackupID FROM doc_backup";
+//     db.query(getMaxDocBackupIDQuery, (err, result) => {
+//       if (err) {
+//         console.error("Error in getMaxDocBackupIDQuery:", err);
+//         reject(err);
+//       } else {
+//         const maxDocBackupID = result[0].maxDocBackupID || 0;
+//         const nextDocBackupID = maxDocBackupID + 1;
+//         console.log("maxDocBackupID:", maxDocBackupID);
+//         resolve(nextDocBackupID);
+//       }
+//     });
+//   });
+// };
 
 // Function to find the next available primary key for the activity_log table
 const getNextActivityLogId = async () => {
@@ -172,6 +172,48 @@ const getNextDocumentHistoryId = async () => {
   });
 };
 
+// const getNextDocumentID = async () => {
+//   return new Promise((resolve, reject) => {
+//     const getMaxDocumentIDQuery =
+//       "SELECT MAX(doc_ID) AS maxDocumentID FROM document";
+//     db.query(getMaxDocumentIDQuery, (err, result) => {
+//       if (err) {
+//         console.error("Error in getMaxDocumentIDQuery:", err);
+//         reject(err);
+//       } else {
+//         const maxDocumentID = result[0].maxDocumentID || 0;
+//         const now = new Date();
+//         // Get the date and time components
+//         const dateString = now.toISOString().split("T")[0];
+//         const timeString = now.toTimeString().slice(0, 8).replace(/:/g, "-"); // HH-mm-ss
+
+//         const nextDocumentID = `${timeString}${dateString}${maxDocumentID + 1 }`;
+//         console.log("nextDocumentID:", nextDocumentID);
+//         resolve(nextDocumentID);
+//       }
+//     });
+//   });
+// };
+
+// Function to find the next available primary key for the document table
+const getNextDocumentID = async () => {
+  return new Promise((resolve, reject) => {
+    const getMaxDocumentIDQuery =
+      "SELECT MAX(doc_ID) AS maxDocumentID FROM document";
+    db.query(getMaxDocumentIDQuery, (err, result) => {
+      if (err) {
+        console.error("Error in getMaxDocumentIDQuery:", err);
+        reject(err);
+      } else {
+        const maxDocumentID = result[0].maxDocumentID || 0;
+        const nextDocumentID = maxDocumentID + 1;
+        console.log("nextDocumentID:", nextDocumentID);
+        resolve(nextDocumentID);
+      }
+    });
+  });
+};
+
 router.post("/addDocument", upload.single("file"), async (req, res) => {
   const {
     docID,
@@ -196,13 +238,14 @@ router.post("/addDocument", upload.single("file"), async (req, res) => {
   }
 
   try {
-    const backupFilePath = join(backupUploadsPath, file.filename);
-    fs.copyFileSync(join(uploadsPath, file.filename), backupFilePath);
+    // const backupFilePath = join(backupUploadsPath, file.filename);
+    // fs.copyFileSync(join(uploadsPath, file.filename), backupFilePath);
 
     const maxTransID = await getMaxTransID();
-    const nextDocBackupID = await getNextDocBackupID();
+    // const nextDocBackupID = await getNextDocBackupID();
     const nextActivityLogId = await getNextActivityLogId();
     const nextDocumentHistoryId = await getNextDocumentHistoryId();
+    const nextDocumentID = await getNextDocumentID();
     const userAccount = await getUserAccount(userID);
 
     const result = await new Promise((resolve, reject) => {
@@ -215,7 +258,7 @@ router.post("/addDocument", upload.single("file"), async (req, res) => {
         const documentInsertQuery =
           "INSERT INTO document (doc_ID, personnel_id, doc_type_id, Date_Received, Date_Released, remarks, tags, status_id, Unit_id, client_id, file) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         const documentInsertValues = [
-          docID,
+          nextDocumentID,
           assignatories,
           documentType,
           dateReceived,
@@ -252,33 +295,33 @@ router.post("/addDocument", upload.single("file"), async (req, res) => {
                   console.error("Error in transactionInsertQuery:", err);
                   db.rollback(() => reject(err));
                 } else {
-                  const docBackupInsertQuery =
-                    "INSERT INTO doc_backup (Doc_backup_ID, Doc_ID, Doc_type_ID, personnel_id, Client_ID, Unit_ID, Status_ID, File, Date_Received, Date_Released, Backup_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-                  const docBackupInsertValues = [
-                    nextDocBackupID,
-                    null,
-                    documentType,
-                    assignatories,
-                    client,
-                    unit,
-                    status,
-                    file.filename,
-                    dateReceived,
-                    dateReleased,
-                    docID,
-                  ];
+                  // const docBackupInsertQuery =
+                  //   "INSERT INTO doc_backup (Doc_backup_ID, Doc_ID, Doc_type_ID, personnel_id, Client_ID, Unit_ID, Status_ID, File, Date_Received, Date_Released, Backup_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                  // const docBackupInsertValues = [
+                  //   nextDocBackupID,
+                  //   null,
+                  //   documentType,
+                  //   assignatories,
+                  //   client,
+                  //   unit,
+                  //   status,
+                  //   file.filename,
+                  //   dateReceived,
+                  //   dateReleased,
+                  //   docID,
+                  // ];
 
-                  console.log("docBackupInsertQuery:", docBackupInsertQuery);
-                  console.log("docBackupInsertValues:", docBackupInsertValues);
+                  // console.log("docBackupInsertQuery:", docBackupInsertQuery);
+                  // console.log("docBackupInsertValues:", docBackupInsertValues);
 
-                  db.query(
-                    docBackupInsertQuery,
-                    docBackupInsertValues,
-                    (err, result) => {
-                      if (err) {
-                        console.error("Error in docBackupInsertQuery:", err);
-                        db.rollback(() => reject(err));
-                      } else {
+                  // db.query(
+                  //   docBackupInsertQuery,
+                  //   docBackupInsertValues,
+                  //   (err, result) => {
+                  //     if (err) {
+                  //       console.error("Error in docBackupInsertQuery:", err);
+                  //       db.rollback(() => reject(err));
+                  //     } else {
                         const myDate = new Date();
                         myDate.toLocaleString("en-US", {
                           timeZone: "Asia/Manila",
@@ -318,7 +361,7 @@ router.post("/addDocument", upload.single("file"), async (req, res) => {
                                 "INSERT INTO document_history (doc_history_ID, doc_ID, doc_type_ID, personnel_ID, client_ID, unit_ID, status_ID, file, date_received, date_released, remarks, tags) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                               const documentHistoryInsertValues = [
                                 nextDocumentHistoryId,
-                                docID,
+                                nextDocumentID,
                                 documentType,
                                 assignatories,
                                 client,
@@ -378,12 +421,10 @@ router.post("/addDocument", upload.single("file"), async (req, res) => {
                     }
                   );
                 }
-              }
-            );
-          }
-        });
-      });
-    });
+              });
+            });
+          });
+      
 
     console.log(
       "Document, Transaction, Transaction Log, and Activity Log added to the database"

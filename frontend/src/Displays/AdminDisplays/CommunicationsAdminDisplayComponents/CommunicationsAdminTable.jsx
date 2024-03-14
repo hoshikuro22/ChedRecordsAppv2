@@ -400,15 +400,14 @@ export default function CommunicationsAdminTable({
                 <td className="border px-3 py-2 text-left flex">
                   <button
                     title="Modify File"
-                    className="text-green-500 hover:underline font-bold"
+                    className="text-green-500 hover:text-green-800 font-bold"
                     onClick={() => handleEditFileClick(document.doc_ID)}
                   >
                     <RiFileEditFill size="35px" />
-                    <div className="absolute bg-gray-800 text-white p-2 rounded shadow-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition duration-300"></div>
-                  </button>
+                       </button>
                   <button
                     title="Modify Details"
-                    className="text-blue-500 hover:underline font-bold flex"
+                    className="text-blue-500 hover:text-blue-800 font-bold flex"
                     onClick={() => handleEditClick(document.doc_ID)}
                   >
                     <MdEdit size="35px" />
@@ -421,7 +420,7 @@ export default function CommunicationsAdminTable({
                   </button>
                   <button
                     title="More Details"
-                    className="text-gray-500 hover:underline font-bold"
+                    className="text-gray-500 hover:text-gray-800 font-bold"
                     onClick={() => handleInfoClick(document.doc_ID)}
                   >
                     <PiListMagnifyingGlass size="35px" />

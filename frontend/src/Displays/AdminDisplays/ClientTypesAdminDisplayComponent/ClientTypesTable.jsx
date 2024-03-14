@@ -30,7 +30,7 @@ export default function ClientTypesTable({ clientTypes, handleDeleteClick, handl
               <td className="border px-4 py-2 text-center">
               <button
                  title="Modify"
-                 className="text-blue-500 hover:underline ml-2 font-bold"
+                 className="text-blue-500 hover:text-blue-800 ml-2 font-bold"
                  onClick={() =>  handleEditClick(clientType.Client_type_ID)}
                >
                 <MdEdit size='35px'/>
@@ -38,7 +38,7 @@ export default function ClientTypesTable({ clientTypes, handleDeleteClick, handl
                 </button>
                 <button
                   title="Delete"
-                  className="text-red-500 hover:underline ml-2 font-bold"
+                  className="text-red-500 hover:text-red-800 ml-2 font-bold"
                   onClick={() => handleDeleteClick(clientType.Client_type_ID)}
                 >
                  <MdDelete size='35px'/>

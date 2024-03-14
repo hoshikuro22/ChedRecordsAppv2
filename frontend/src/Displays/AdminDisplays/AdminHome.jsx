@@ -5,7 +5,8 @@ import { TEChart } from "tw-elements-react";
 import { makeRequest } from "../../../axios";
 // import { IoIosFolder } from "react-icons/io";
 // import { BsFillPersonFill } from "react-icons/bs";
-// import { FaCalendarDay, FaCalendarWeek } from "react-icons/fa";
+import { FaCalendarDay} from "react-icons/fa";
+// import { FaCalendarWeek } from "react-icons/fa";
 // import { MdCalendarMonth } from "react-icons/md";
 // import { GiCalendarHalfYear } from "react-icons/gi";
 
@@ -187,6 +188,35 @@ export default function AdminHome() {
     return { percentages, total };
   };
 
+  const [dailyRecords, setDailyRecords] = useState([]);
+
+  useEffect(() => {
+    // Fetch daily records from the backend
+    makeRequest
+      .get("/getDocuments")
+      .then((response) => {
+        // Format current date to match database format
+        const currentDate = new Date().toLocaleDateString('en-US', {
+          month: 'numeric',
+          day: 'numeric',
+          year: 'numeric',
+        }).replace(/\//g, '-'); // Replace slashes with dashes to match the database format
+        
+        // Filter records for the current date
+        const filteredRecords = response.data.filter(record => {
+          // Convert date_received format to match the current date format
+          const receivedDate = record.date_received.replace(/\//g, '-');
+          return receivedDate === currentDate;
+        });
+        setDailyRecords(filteredRecords);
+        console.log("the current " + currentDate);
+      })
+      .catch((error) => {
+        console.error("Error fetching daily records:", error);
+      });
+  }, []);
+  
+  
   return (
     <div className="h-auto ml-5">
       <div className="container mx-auto flex-row">
@@ -194,24 +224,26 @@ export default function AdminHome() {
           Dashboard
         </h1>
         {/* First Row - Three Smaller Sections */}
-        {/* <div className="grid grid-cols-4 gap-6 mt-4 mb-5">
+        <div className="grid grid-cols-4 gap-6 mt-4 mb-5">
           <div className="bg-white rounded-lg shadow-lg p-2 border border-gray-300  transition-all">
             <div className="flex items-center space-x-4">
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-semibold text-gray-600">
-                  Daily Records
-                </p>
-                <p className="text-2xl font-bold text-indigo-800 mb-1 flex gap-4 mt-2">
-                  <span className="text-4xl leading-loose text-indigo-500">
-                    <FaCalendarDay />
-                  </span>{" "}
-                  {clientCount} Records
-                </p>
-              </div>
+      <p className="text-sm font-semibold text-gray-600">
+        Daily Records
+      </p>
+      <p className="text-2xl font-bold text-indigo-800 mb-1 flex gap-4 mt-2">
+        <span className="text-4xl leading-loose text-indigo-500">
+          <FaCalendarDay />
+        </span>{" "}
+        {`${dailyRecords.length} Records for Today`}
+      </p>
+      {/* Render your daily records here */}
+ 
+    </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-lg p-2 border border-gray-300 transition-all">
+          {/* <div className="bg-white rounded-lg shadow-lg p-2 border border-gray-300 transition-all">
             <div className="flex items-center space-x-4">
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-semibold text-gray-600">
@@ -225,9 +257,9 @@ export default function AdminHome() {
                 </p>
               </div>
             </div>
-          </div>
+          </div> */}
 
-          <div className="bg-white rounded-lg shadow-lg p-2 border border-gray-300  transition-all">
+          {/* <div className="bg-white rounded-lg shadow-lg p-2 border border-gray-300  transition-all">
             <div className="flex items-center space-x-4">
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-semibold text-gray-600">
@@ -257,8 +289,8 @@ export default function AdminHome() {
                 </p>
               </div>
             </div>
-          </div>
-        </div> */}
+          </div> */}
+        </div>
 
         <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* Second Row - Two Large Sections */}

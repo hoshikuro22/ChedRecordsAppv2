@@ -734,8 +734,10 @@ export default function CommunicationsAdminAddForm({
                   onChange={handleChange}
                   className="px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
                 >
-                  <option value="">Select Client</option>
-                  {clientsOptions.map((client) => (
+                  <option value="CHED10">CHED10</option>
+                  {clientsOptions
+                  .filter((client) => client.client_type_id === 2)
+                  .map((client) => (
                     <option key={client.client_id} value={client.client_id}>
                       {client.client_name}
                     </option>

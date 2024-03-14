@@ -11,7 +11,7 @@ import { makeRequest } from "../../../axios";
 
 export default function Communications() {
   const [formData, setFormData] = useState({
-    doc_ID: "",
+    // doc_ID: "",
     file: null,
     documentType: "",
     dateReceived: new Date(),
@@ -21,7 +21,7 @@ export default function Communications() {
     unit: "",
     remarks: "",
     tags: "",
-    client: "",
+    client: "CHED10",
     userID: "",
   });
   console.log("the formData " + JSON.stringify(formData));
@@ -318,7 +318,7 @@ export default function Communications() {
   };
 
   const handleInfoClick = (doc_ID) => {
-    // Find the selected row data based on the inst_id
+    // Find the selected row data based on the doc_id
     const selectedRow = documents.find(
       (document) => document.doc_ID === doc_ID
     );
@@ -351,15 +351,15 @@ export default function Communications() {
     }
   };
 
-  const getMaxDocID = () => {
-    if (documents.length === 0) {
-      return 1;
-    }
-    const maxDocID = Math.max(
-      ...documents.map((document) => parseInt(document.doc_ID))
-    );
-    return maxDocID + 1;
-  };
+  // const getMaxDocID = () => {
+  //   if (documents.length === 0) {
+  //     return 1;
+  //   }
+  //   const maxDocID = Math.max(
+  //     ...documents.map((document) => parseInt(document.doc_ID))
+  //   );
+  //   return maxDocID + 1;
+  // };
 
   //
   const [selectedPersonnelUnit, setSelectedPersonnelUnit] = useState(null);
@@ -453,7 +453,7 @@ export default function Communications() {
   const handleClearFormClick = () => {
     setFormData((prevData) => ({
       ...prevData,
-      doc_ID: "",
+      // doc_ID: "",
       file: null,
       documentType: "",
       dateReceived: new Date(),
@@ -481,13 +481,13 @@ export default function Communications() {
       return;
     }
     try {
-      const docID = getMaxDocID();
+      // const docID = getMaxDocID();
       const formattedDateReceived = formData.dateReceived.toLocaleDateString();
       const formattedDateReleased = formData.dateReleased.toLocaleDateString();
       const formDataToSend = new FormData();
 
       // Append form data including the file
-      formDataToSend.append("docID", docID);
+      // formDataToSend.append("docID", docID);
       formDataToSend.append("assignatories", formData.assignatories);
       formDataToSend.append("documentType", formData.documentType);
       formDataToSend.append("dateReceived", formattedDateReceived);

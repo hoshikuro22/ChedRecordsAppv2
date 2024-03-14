@@ -115,41 +115,49 @@ export default function Profile() {
   };
 
   return (
-    <div className="relative ml-5 mt-28">
-  <h2 className="text-3xl font-semibold text-center bg-blue-600 text-white p-4">
+    <div className="ml-5 mt-5 flex flex-row ">
+      <div className="mr-64">
+      <h2 className="text-3xl font-semibold text-center w-64 mb-20 bg-blue-600 text-white p-4">
     User Profile
   </h2>
-  <table className="min-w-full leading-normal">
-    <thead className="bg-gray-400">
-    <tr className=" ">
-        <th className="border px-3 py-2">User ID</th>
-        <th className="border px-3 py-2">User Type ID</th>
-        <th className="border px-3 py-2">First Name</th>
-        <th className="border px-3 py-2">Last Name</th>
-        <th className="border px-3 py-2">Email</th>
-        <th className="border px-3 py-2">Mobile Number</th>
-        <th className="border px-3 py-2">Username</th>
-        <th className="border px-3 py-2">Password</th>
-      </tr>
-    </thead>
+      </div>
+
+  <div className="flex flex-col justify-center items-center">
+    <div className="border p-2 bg-white">
+    <h1 className="font-semibold mb-8 text-3xl">Account Details
+
+    </h1>
+  <table className=" leading-normal border border-black">
     <tbody className="bg-white">
+
       <tr>
-        <td className="border px-3 py-2">{userData.User_ID}</td>
-        <td className="border px-3 py-2">{userData.User_type_ID}</td>
-        <td className="border px-3 py-2">{userData.First_Name}</td>
-        <td className="border px-3 py-2">{userData.Last_Name}</td>
-        <td className="border px-3 py-2">{userData.Email}</td>
-        <td className="border px-3 py-2">{userData.Contact_Number}</td>
-        <td className="border px-3 py-2">{userData.Username}</td>
-        <td className="border px-3 py-2">*</td>
+        <th className="border px-3 py-2 text-2xl">Full Name</th>
+        <td className="border px-3 py-2 text-2xl ">{userData.First_Name} {userData.Last_Name}</td>
+      </tr>
+      <tr>
+        <th className="border px-3 py-2 text-2xl">Email</th>
+        <td className="border px-3 py-2 text-2xl">{userData.Email}</td>
+      </tr>
+      <tr>
+        <th className="border px-3 py-2 text-2xl">Mobile Number</th>
+        <td className="border px-3 py-2 text-2xl">{userData.Contact_Number}</td>
+      </tr>
+      <tr>
+        <th className="border px-3 py-2 text-2xl">Username</th>
+        <td className="border px-3 py-2 text-2xl">{userData.Username}</td>
+      </tr>
+      <tr>
+        <th className="border px-3 py-2 text-2xl">Password</th>
+        <td className="border px-3 py-2 text-2xl">*</td>
       </tr>
     </tbody>
   </table>
-
+  </div>
+  
   <div className="p-4">
     <button
       onClick={openModal}
-      className="w-full bg-blue-500 text-white font-bold rounded py-2 cursor-pointer"
+      className="w-24 bg-blue-500 text-white font-bold rounded py-2 cursor-pointer"
     >
       EDIT
     </button>
@@ -164,6 +172,9 @@ export default function Profile() {
       />
     )}
   </div>
+  </div>
+
+
 </div>
 
   );

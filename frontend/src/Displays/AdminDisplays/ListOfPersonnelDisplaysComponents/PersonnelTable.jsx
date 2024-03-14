@@ -39,7 +39,7 @@ export default function PersonnelTable({ personnels, handleDeleteClick, handleEd
               <td className="border px-4 py-2 text-left flex">
                 <button
                  title="Modify"
-                 className="text-blue-500 hover:underline ml-2 font-bold"
+                 className="text-blue-500 hover:text-blue-800 ml-2 font-bold"
                  onClick={() =>  handleEditClick(personnel.Personnel_ID)}
                >
                  <MdEdit size='35px'/>
@@ -47,7 +47,7 @@ export default function PersonnelTable({ personnels, handleDeleteClick, handleEd
                 </button>
                 <button
                   title="Delete"
-                  className="text-red-500 hover:underline ml-2 font-bold"
+                  className="text-red-500 hover:text-red-800 ml-2 font-bold"
                   onClick={() => handleDeleteClick(personnel.Personnel_ID)}
                 >
                   <MdDelete size='35px'/>

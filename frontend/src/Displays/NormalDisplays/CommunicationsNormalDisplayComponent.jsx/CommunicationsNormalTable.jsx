@@ -393,7 +393,7 @@ export default function CommunicationsNormalTable({
           </button> */}
                   <button
                     title="More Details"
-                    className="text-gray-500 hover:underline ml-2 font-bold"
+                    className="text-gray-500 hover:text-gray-800 ml-2 font-bold"
                     onClick={() => handleInfoClick(document.doc_ID)}
                   >
                     <PiListMagnifyingGlass size="35px" />

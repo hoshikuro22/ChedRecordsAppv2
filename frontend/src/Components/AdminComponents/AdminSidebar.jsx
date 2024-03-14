@@ -5,9 +5,8 @@ import {
   BsFillPersonLinesFill,
 } from "react-icons/bs";
 import { IoMdPersonAdd, IoIosFolder } from "react-icons/io";
-import { FaCircleUser } from "react-icons/fa6";
-import { FaClockRotateLeft } from "react-icons/fa6";
-import { BiMessageSquare, BiSolidReport, BiLogOut } from "react-icons/bi";
+import { FaClockRotateLeft, FaMessage, FaCircleUser  } from "react-icons/fa6";
+import { BiSolidReport, BiLogOut } from "react-icons/bi";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -89,7 +88,7 @@ export default function AdminSidebar() {
                         : "hover:bg-gray-700"
                     }`}
                   >
-                    <BiMessageSquare />
+                    <FaMessage />
                     Communications
                   </a>
                 </li>
