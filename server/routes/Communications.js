@@ -282,7 +282,7 @@ router.post("/addDocument", upload.single("file"), async (req, res) => {
             const nextTransID = maxTransID + 1;
             const transactionInsertQuery =
               "INSERT INTO transaction (Trans_ID, User_ID, Doc_ID, Client_ID) VALUES (?, ?, ?, ?)";
-            const transactionInsertValues = [nextTransID, userID, docID, null];
+            const transactionInsertValues = [nextTransID, userID, nextDocumentID, null];
 
             console.log("transactionInsertQuery:", transactionInsertQuery);
             console.log("transactionInsertValues:", transactionInsertValues);
@@ -333,7 +333,7 @@ router.post("/addDocument", upload.single("file"), async (req, res) => {
                           nextActivityLogId,
                           nextTransID,
                           myDate,
-                          `Added doc_ID: ${docID} | File Name: ${file.filename}`,
+                          `Added doc_ID: ${nextDocumentID} | File Name: ${file.filename}`,
                           userAccount,
                         ];
 
