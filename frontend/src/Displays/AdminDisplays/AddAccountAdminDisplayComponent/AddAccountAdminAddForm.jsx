@@ -105,7 +105,7 @@ export default function AddAccountAdminAddForm({
                   className="px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
                 >
                   <option value="">Select User Type</option>
-                  <option value="0">Admin</option>
+                  <option value="0">Admin - Records Officer</option>
                   <option value="1">Staff - Receiving Clerk</option>
                   <option value="2">Staff - Releasing Clerk</option>
                   <option value="3">Staff - Education Supervisor</option>

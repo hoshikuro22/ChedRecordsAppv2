@@ -92,9 +92,10 @@ export default function ChedClientsAdminAddForm({
 
               <div className="flex flex-col">
                 <label className="mb-1 text-sm font-semibold">
-                  Email Address (Optional)
+                  Email Address
                 </label>
                 <input
+                  required
                   type="email"
                   id="email"
                   name="email"

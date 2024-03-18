@@ -119,6 +119,11 @@ export default function CommunicationsAdminAddForm({
       return;
     }
 
+    if (formDataCHEDClients.email.trim() === '') {
+      alert('Email Address  is required');
+      return;
+    }
+
     if (formDataCHEDClients.contactPerson.trim() === '') {
       alert('Contact Person is required');
       return;
