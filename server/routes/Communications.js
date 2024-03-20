@@ -5,6 +5,7 @@ import fs from "fs";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 import path from "path";
+import nodemailer from "nodemailer";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -77,8 +78,73 @@ router.get("/communicationhistoryfiles/:filename", (req, res) => {
 
 //first line sa admin:communication(documents)
 
-// CREATE
+// Endpoint to send file to client via email
+router.post("/sendFileToClient", (req, res) => {
+  const { doc_ID, client_email, } = req.body;
 
+  // Retrieve file path from the database based on doc_ID
+  const sql = "SELECT file FROM document WHERE Doc_ID = ?";
+  db.query(sql, [doc_ID], (err, result) => {
+    if (err) {
+      console.error("Error retrieving file path:", err);
+      return res.status(500).json({ message: "Internal server error" });
+    }
+
+    if (result.length === 0) {
+      return res.status(404).json({ message: "Document not found" });
+    }
+
+    const filename = result[0].file;
+    const filePath = path.join(uploadsPath, filename);
+
+      // Check if the file exists
+  if (!fs.existsSync(filePath)) {
+    console.error("File not found:", filePath);
+    return res.status(404).json({ message: "File not found" });
+  }
+    // Create Nodemailer transporter
+    const transporter = nodemailer.createTransport({
+      // Configure your email provider here
+      service: 'gmail',
+      auth: {
+        user: 'lavictoriacitdls@gmail.com',
+        pass: 'gtxr ocik bdeo xzvp'
+      },
+      tls: {
+        rejectUnauthorized: false // Disable SSL certificate verification
+      }
+    });
+
+    // Setup email data with attachment
+    const mailOptions = {
+      from: "lavictoriacitdls@gmail.com",
+      to: client_email,
+      subject: "File from Communication",
+      text: "Attached is the file from Communication",
+      attachments: [
+        {
+          filename: path.basename(filePath),
+          path: filePath,
+        },
+      ],
+    };
+
+    // Send email with attachment
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error("Error sending email:", error);
+        return res.status(500).json({ message: "Failed to send email" });
+      }
+
+      console.log("Email sent:", info.response);
+      return res.status(200).json({ message: "File sent successfully" });
+    });
+  });
+});
+
+
+
+// CREATE
 // Function to get the maximum Trans_ID from the "transaction" table
 const getMaxTransID = async () => {
   return new Promise((resolve, reject) => {
@@ -216,7 +282,7 @@ const getNextDocumentID = async () => {
 
 router.post("/addDocument", upload.single("file"), async (req, res) => {
   const {
-    docID,
+    // docID,
     assignatories,
     documentType,
     dateReceived,
@@ -282,7 +348,12 @@ router.post("/addDocument", upload.single("file"), async (req, res) => {
             const nextTransID = maxTransID + 1;
             const transactionInsertQuery =
               "INSERT INTO transaction (Trans_ID, User_ID, Doc_ID, Client_ID) VALUES (?, ?, ?, ?)";
-            const transactionInsertValues = [nextTransID, userID, nextDocumentID, null];
+            const transactionInsertValues = [
+              nextTransID,
+              userID,
+              nextDocumentID,
+              null,
+            ];
 
             console.log("transactionInsertQuery:", transactionInsertQuery);
             console.log("transactionInsertValues:", transactionInsertValues);
@@ -322,98 +393,92 @@ router.post("/addDocument", upload.single("file"), async (req, res) => {
                   //       console.error("Error in docBackupInsertQuery:", err);
                   //       db.rollback(() => reject(err));
                   //     } else {
-                        const myDate = new Date();
-                        myDate.toLocaleString("en-US", {
-                          timeZone: "Asia/Manila",
-                        });
-                        console.log(myDate);
-                        const activityLogInsertQuery =
-                          "INSERT INTO activity_log (activity_ID, trans_ID, dateandtime, activity, user_account) VALUES (?, ?, ?, ?, ?)";
-                        const activityLogInsertValues = [
-                          nextActivityLogId,
-                          nextTransID,
-                          myDate,
-                          `Added doc_ID: ${nextDocumentID} | File Name: ${file.filename}`,
-                          userAccount,
+                  const myDate = new Date();
+                  myDate.toLocaleString("en-US", {
+                    timeZone: "Asia/Manila",
+                  });
+                  console.log(myDate);
+                  const activityLogInsertQuery =
+                    "INSERT INTO activity_log (activity_ID, trans_ID, dateandtime, activity, user_account) VALUES (?, ?, ?, ?, ?)";
+                  const activityLogInsertValues = [
+                    nextActivityLogId,
+                    nextTransID,
+                    myDate,
+                    `Added doc_ID: ${nextDocumentID} | File Name: ${file.filename}`,
+                    userAccount,
+                  ];
+
+                  console.log(
+                    "activityLogInsertQuery:",
+                    activityLogInsertQuery
+                  );
+                  console.log(
+                    "activityLogInsertValues:",
+                    activityLogInsertValues
+                  );
+
+                  db.query(
+                    activityLogInsertQuery,
+                    activityLogInsertValues,
+                    (err, result) => {
+                      if (err) {
+                        console.error("Error in activityLogInsertQuery:", err);
+                        db.rollback(() => reject(err));
+                      } else {
+                        const documentHistoryInsertQuery =
+                          "INSERT INTO document_history (doc_history_ID, doc_ID, doc_type_ID, personnel_ID, client_ID, unit_ID, status_ID, file, date_received, date_released, remarks, tags) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                        const documentHistoryInsertValues = [
+                          nextDocumentHistoryId,
+                          nextDocumentID,
+                          documentType,
+                          assignatories,
+                          client,
+                          unit,
+                          status,
+                          file.filename,
+                          dateReceived,
+                          dateReleased,
+                          remarks,
+                          tags,
                         ];
 
                         console.log(
-                          "activityLogInsertQuery:",
-                          activityLogInsertQuery
+                          "documentHistoryInsertQuery:",
+                          documentHistoryInsertQuery
                         );
                         console.log(
-                          "activityLogInsertValues:",
-                          activityLogInsertValues
+                          "documentHistoryInsertValues:",
+                          documentHistoryInsertValues
+                        );
+                        // Move the file to communication-uploads_history folder
+                        const historyFilePath = join(
+                          uploadsHistoryPath,
+                          file.filename
+                        );
+                        fs.copyFileSync(
+                          join(uploadsPath, file.filename),
+                          historyFilePath
                         );
 
                         db.query(
-                          activityLogInsertQuery,
-                          activityLogInsertValues,
+                          documentHistoryInsertQuery,
+                          documentHistoryInsertValues,
                           (err, result) => {
                             if (err) {
                               console.error(
-                                "Error in activityLogInsertQuery:",
+                                "Error in documentHistoryInsertQuery:",
                                 err
                               );
                               db.rollback(() => reject(err));
                             } else {
-                              const documentHistoryInsertQuery =
-                                "INSERT INTO document_history (doc_history_ID, doc_ID, doc_type_ID, personnel_ID, client_ID, unit_ID, status_ID, file, date_received, date_released, remarks, tags) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-                              const documentHistoryInsertValues = [
-                                nextDocumentHistoryId,
-                                nextDocumentID,
-                                documentType,
-                                assignatories,
-                                client,
-                                unit,
-                                status,
-                                file.filename,
-                                dateReceived,
-                                dateReleased,
-                                remarks,
-                                tags,
-                              ];
-
-                              console.log(
-                                "documentHistoryInsertQuery:",
-                                documentHistoryInsertQuery
-                              );
-                              console.log(
-                                "documentHistoryInsertValues:",
-                                documentHistoryInsertValues
-                              );
-                              // Move the file to communication-uploads_history folder
-                              const historyFilePath = join(
-                                uploadsHistoryPath,
-                                file.filename
-                              );
-                              fs.copyFileSync(
-                                join(uploadsPath, file.filename),
-                                historyFilePath
-                              );
-
-                              db.query(
-                                documentHistoryInsertQuery,
-                                documentHistoryInsertValues,
-                                (err, result) => {
-                                  if (err) {
-                                    console.error(
-                                      "Error in documentHistoryInsertQuery:",
-                                      err
-                                    );
-                                    db.rollback(() => reject(err));
-                                  } else {
-                                    db.commit((err) => {
-                                      if (err) {
-                                        console.error("Error in commit:", err);
-                                        db.rollback(() => reject(err));
-                                      } else {
-                                        resolve(result);
-                                      }
-                                    });
-                                  }
+                              db.commit((err) => {
+                                if (err) {
+                                  console.error("Error in commit:", err);
+                                  db.rollback(() => reject(err));
+                                } else {
+                                  resolve(result);
                                 }
-                              );
+                              });
                             }
                           }
                         );
@@ -421,10 +486,12 @@ router.post("/addDocument", upload.single("file"), async (req, res) => {
                     }
                   );
                 }
-              });
-            });
-          });
-      
+              }
+            );
+          }
+        });
+      });
+    });
 
     console.log(
       "Document, Transaction, Transaction Log, and Activity Log added to the database"
@@ -486,6 +553,57 @@ ORDER BY doc_ID DESC;
   });
 });
 
+//READ or .get with ID
+router.get("/getDocuments/:id", (req, res) => {
+  const docId = req.params.id;
+  const sql = `
+  SELECT
+  CAST(d.Doc_ID AS SIGNED) AS doc_ID,
+  dt.Type AS document_type,
+  lp.first_name as contact_firstName,
+  lp.last_name as contact_lastName,
+  lp.position as contact_position,
+  d.doc_type_id,
+  d.personnel_id,
+  d.unit_id,
+  d.status_id,
+  d.client_id,
+  d.file,
+  d.date_received,
+  d.date_released,
+  d.remarks,
+  d.tags,
+  s.type AS status,
+  dep.type AS unit,
+  i.client_name AS client_name,
+  c.email AS client_email
+FROM document d 
+JOIN document_type dt ON d.Doc_Type_ID = dt.Doc_Type_ID
+JOIN list_personnel lp ON d.Personnel_ID = lp.Personnel_ID
+JOIN status s ON d.status_id = s.status_ID
+JOIN unit dep ON d.unit_id = dep.unit_id
+JOIN client i ON d.client_id = i.client_id
+JOIN client c ON d.client_id = c.Client_ID
+WHERE d.Doc_ID = ?;
+  `;
+  db.query(sql, [docId], (err, data) => {
+    if (err) {
+      console.error("Error fetching document:", err);
+      return res
+        .status(500)
+        .json({ Status: "Error", Message: "Failed to fetch document" });
+    }
+
+    if (data.length === 0) {
+      return res
+        .status(404)
+        .json({ Status: "Error", Message: "Document not found" });
+    }
+
+    return res.status(200).json(data[0]); // Assuming only one document is expected
+  });
+});
+
 // API endpoint to get the maximum Doc_ID
 router.get("/getMaxDocIDShown", async (req, res) => {
   try {
@@ -499,7 +617,7 @@ router.get("/getMaxDocIDShown", async (req, res) => {
           .json({ Status: "Error", Message: "Failed to fetch max Doc_ID" });
       }
 
-      const maxDocIDShown = result[0].maxDocIDShown || 0; 
+      const maxDocIDShown = result[0].maxDocIDShown || 0;
       return res.status(200).json({ maxDocIDShown });
     });
   } catch (error) {
@@ -556,7 +674,7 @@ ORDER BY doc_history_ID ASC;
   });
 });
 
-// sa document history fetch 
+// sa document history fetch
 router.get("/getDocumentsHistory", (req, res) => {
   const sql = `
     SELECT
@@ -592,12 +710,13 @@ router.get("/getDocumentsHistory", (req, res) => {
   db.query(sql, (err, data) => {
     if (err) {
       console.error("Error fetching document history:", err);
-      return res.status(500).json({ status: "Error", message: "Failed to fetch document history" });
+      return res
+        .status(500)
+        .json({ status: "Error", message: "Failed to fetch document history" });
     }
     return res.status(200).json(data);
   });
 });
-
 
 // endpoint to get the count of Communications
 router.get("/getCommunicationCount", (req, res) => {
@@ -1052,16 +1171,16 @@ router.put("/updateDocumentNormal/:id", (req, res) => {
           .json({ Status: "Error", Message: "Document not found" });
       }
 
-         // Insert a record into the "document_history" table
-       insertDocumentHistoryNoFile(id, (err) => {
+      // Insert a record into the "document_history" table
+      insertDocumentHistoryNoFile(id, (err) => {
         if (err) {
           console.error(err);
           return res.status(500).json({
             Status: "Error",
             Message: "Error adding record to document_history table",
-          })
+          });
         }
-       })
+      });
       console.log("Document updated in the database");
       return res.status(200).json({
         Status: "Success",

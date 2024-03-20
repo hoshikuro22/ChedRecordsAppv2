@@ -8,6 +8,7 @@ import CommunicationsAdminEditForm from "./CommunicationsAdminDisplayComponents/
 import CommunicationsAdminSearchBar from "./CommunicationsAdminDisplayComponents/CommunicationsAdminSearchBar";
 import CommunicationsAdminEditForm2 from "./CommunicationsAdminDisplayComponents/CommunicationsAdminEditForm2";
 import { makeRequest } from "../../../axios";
+import CommunicationsAdminSendFile from "./CommunicationsAdminDisplayComponents/CommunicationsAdminSendFile";
 
 export default function Communications() {
   const [formData, setFormData] = useState({
@@ -594,6 +595,60 @@ export default function Communications() {
     }
   };
 
+
+  // functions to send file to client
+  const [showSendFileModal, setShowSendFileModal] = useState(false);
+  const [documentToSend, setDocumentToSend] = useState(null);
+
+  // Handler to open the send file modal
+  const handleOpenSendFileModal = async (doc_ID) => {
+    try {
+      // Fetch document details based on doc_ID
+      const response = await makeRequest.get(`/getDocuments/${doc_ID}`);
+      const documentDetails = response.data; // Assuming it returns an object with doc_ID, Client_ID, and file
+      setDocumentToSend(documentDetails);
+      setShowSendFileModal(true); // Open modal after fetching document details
+    } catch (error) {
+      console.error("Error fetching document details:", error);
+      // Handle error if needed
+    }
+  };
+
+  // Handler to close the send file modal
+  const handleCloseSendFileModal = () => {
+    setShowSendFileModal(false);
+  };
+
+  // Handler to send the file to the client
+  const handleSendFile = async (e) => {
+    e.preventDefault();
+    const userConfirmed = window.confirm(
+      "Are you sure you want to send the file to the client's email?"
+    );
+  
+    if (!userConfirmed) {
+      // User clicked 'Cancel' in the confirmation dialog
+      alert("File not sent.");
+      return;
+    }
+  
+    try {
+      // Assuming documentToSend contains the necessary data including doc_ID and client_email
+      const { doc_ID, client_email, file } = documentToSend;
+  
+      // Send a POST request to your backend endpoint
+      const response = await makeRequest.post('/sendFileToClient', { doc_ID, client_email, file });
+  
+      // Handle success response
+      console.log('File sent successfully:', response.data);
+      setShowSendFileModal(false); 
+      alert("File sent successfully");// Close the modal or reset form fields
+    } catch (error) {
+      // Handle error
+      console.error('Error sending file:', error);
+      // You can display an error message or handle it as needed
+    }
+  };
   return (
     <div className="h-auto mt-2 p-1 ml-5">
       <div className="flex flex-row gap-2">
@@ -637,6 +692,7 @@ export default function Communications() {
             clientsOptions={clientsOptions}
             documentTypeOptions={documentTypeOptions}
             unitOptions={unitOptions}
+            handleOpenSendFileModal={handleOpenSendFileModal}
           />
         </div>
 
@@ -697,6 +753,13 @@ export default function Communications() {
           documentHistory={documentHistory}
         />
       </div>
+
+      <CommunicationsAdminSendFile
+        show={showSendFileModal}
+        handleCloseSendFileModal={handleCloseSendFileModal}
+        handleSendFile={handleSendFile}
+        documentToSend={documentToSend}
+      />
     </div>
   );
 }

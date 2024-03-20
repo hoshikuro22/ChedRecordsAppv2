@@ -230,9 +230,9 @@ export default function AdminHome() {
             <div className="flex items-center space-x-4">
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-semibold text-gray-600 flex flex-row ">
-                  Daily Records
+                  Daily Records | <p className="text-white">_ </p>
                   <p className="right">
-                    | Date:{" "}
+                    Date:{" "}
                     {new Date()
                       .toLocaleDateString("en-US", {
                         month: "numeric",

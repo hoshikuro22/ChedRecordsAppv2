@@ -2,8 +2,10 @@ import PropTypes from "prop-types";
 import { useState, useEffect } from "react";
 import { makeRequest } from "../../../../axios";
 import { MdEdit } from "react-icons/md";
-import { RiFileEditFill } from "react-icons/ri";
+import { RiFileEditFill, RiMailSendFill  } from "react-icons/ri";
 import { PiListMagnifyingGlass } from "react-icons/pi";
+
+// import { MdDelete } from "react-icons/md";
 
 export default function CommunicationsAdminTable({
   currentItems,
@@ -15,6 +17,7 @@ export default function CommunicationsAdminTable({
   documentTypeOptions,
   unitOptions,
   searchQuery,
+  handleOpenSendFileModal,
 }) {
   //sa color function for STATUS//
   const getStatusColorClass = (status) => {
@@ -195,7 +198,7 @@ export default function CommunicationsAdminTable({
                   type="button"
                   className="inline-flex justify-center w-44 px-2 py-1 text-black bg-gray-400 rounded-lg hover:bg-gray-500 transition duration-300"
                 >
-                  {selectedTypeFilter ? selectedTypeFilter : "Filing Category"} 
+                  {selectedTypeFilter ? selectedTypeFilter : "Filing Category"}
                 </button>
                 {showTypeFilterDropdown && (
                   <div className="origin-top-right absolute left-0 flex w-auto rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none h-96 overflow-auto ">
@@ -394,7 +397,7 @@ export default function CommunicationsAdminTable({
                 {/* {document.remarks} */}
                 {/* </td> */}
 
-                <td className="border px-4 py-2 text-center">
+                <td className="border px-4 py-2 text-left">
                   <FileLink item={document} />
                 </td>
                 <td className="border px-3 py-2 text-left flex">
@@ -404,26 +407,38 @@ export default function CommunicationsAdminTable({
                     onClick={() => handleEditFileClick(document.doc_ID)}
                   >
                     <RiFileEditFill size="35px" />
-                       </button>
+                    <div className="absolute bg-gray-800 text-white p-2 rounded shadow-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition duration-300"></div>
+                  </button>
                   <button
                     title="Modify Details"
                     className="text-blue-500 hover:text-blue-800 font-bold flex"
                     onClick={() => handleEditClick(document.doc_ID)}
                   >
                     <MdEdit size="35px" />
-                  </button>
-                  <button
-                    className="text-red-500 hover:underline font-bold"
-                    onClick={() => handleDeleteClick(document.doc_ID)}
-                  >
-                    Delete
-                  </button>
+                    <div className="absolute bg-gray-800 text-white p-2 rounded shadow-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition duration-300"></div>
+                  </button> 
+                    <button
+                      title="Send communication to the client"
+                      className="text-sky-500 hover:text-sky-800 font-bold"
+                      onClick={() => handleOpenSendFileModal(document.doc_ID)}
+                    >
+                      <RiMailSendFill  size="29px" />
+                      <div className="absolute bg-gray-800 text-white p-2 rounded shadow-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition duration-300"></div>
+                    </button>
                   <button
                     title="More Details"
                     className="text-gray-500 hover:text-gray-800 font-bold"
                     onClick={() => handleInfoClick(document.doc_ID)}
                   >
                     <PiListMagnifyingGlass size="35px" />
+                    <div className="absolute bg-gray-800 text-white p-2 rounded shadow-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition duration-300"></div>
+                  </button>
+                  <button
+                    className="text-red-500 hover:underline font-bold"
+                    onClick={() => handleDeleteClick(document.doc_ID)}
+                  >
+                  DELETE
+                  {/* <MdDelete size="35px"/> */}
                     <div className="absolute bg-gray-800 text-white p-2 rounded shadow-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition duration-300"></div>
                   </button>
                 </td>
@@ -445,6 +460,7 @@ CommunicationsAdminTable.propTypes = {
   clientsOptions: PropTypes.array.isRequired,
   documentTypeOptions: PropTypes.array.isRequired,
   unitOptions: PropTypes.array.isRequired,
+  handleOpenSendFileModal: PropTypes.func.isRequired,
 };
 
 const FileLink = ({ item }) => {
