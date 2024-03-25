@@ -594,12 +594,13 @@ export default function Reports() {
                 </tbody>
               </table>
             </div>
+            {/* w-auto px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600 transition duration-300 mb-2 flex gap-2 */}
             <button
              title="Print Record"
-              className="flex mt-5 w-auto px-4 py-2 text-white hover:text-gray-500 bg-black hover:bg-gray-800 text-2xl rounded-lg transition duration-300 "
+              className="flex items-center gap-2 mt-5 w-auto px-4 py-2 text-white hover:text-gray-500 bg-black hover:bg-gray-800 font-semibold rounded-lg transition duration-300 "
               onClick={handlePrint}
             >
-              <FaPrint />
+              <FaPrint /> Print
             </button>
           </div>
         </div>
