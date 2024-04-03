@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-
 import ProfileAdminEditForm from "./ProfileAdminDisplayComponent/ProfileAdminEditForm";
 import { makeRequest } from "../../../axios";
 
@@ -23,17 +22,7 @@ export default function Profile() {
   const fetchUserData = async () => {
     try {
       const response = await makeRequest.get("/");
-      setUserData({
-        User_ID: response.data.User_ID,
-        User_type_ID: response.data.User_type_ID,
-        First_Name: response.data.First_Name,
-        Last_Name: response.data.Last_Name,
-        Email: response.data.Email,
-        Password: response.data.Password,
-        Contact_Number: response.data.Contact_Number,
-        Username: response.data.Username,
-      });
-      console.log("the response " + JSON.stringify(response));
+      setUserData(response.data);
     } catch (error) {
       console.error("Error fetching user data:", error);
     }
@@ -42,9 +31,9 @@ export default function Profile() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => {
-    setEditFormData(userData); // Set edit form data to current user data
-    setNewPassword(""); // Reset newPassword when opening the modal
     setIsModalOpen(true);
+    // Pre-fill edit form data with user data
+    setEditFormData({ ...userData });
   };
 
   const closeModal = () => setIsModalOpen(false);
@@ -53,6 +42,7 @@ export default function Profile() {
   const [newPassword, setNewPassword] = useState("");
   const [editFormData, setEditFormData] = useState({
     User_ID: "",
+    User_type_ID: "",
     First_Name: "",
     Last_Name: "",
     Email: "",
@@ -77,105 +67,85 @@ export default function Profile() {
   const handleEditSubmit = async (e) => {
     e.preventDefault();
 
-    // Confirmation dialog
-    if (window.confirm("Are you sure you want to save these changes?")) {
-      // Validate contact number
-      if (
-        editFormData.Contact_Number &&
-        editFormData.Contact_Number.length !== 11
-      ) {
-        alert("Contact number must be 11 digits");
-        return; // Do not proceed with submission
-      }
-      // Validate email
-      if (
-        editFormData.Email &&
-        !editFormData.Email.includes(".com") &&
-        !editFormData.Email.includes(".ph")
-      ) {
-        alert("Email must contain .com");
-        return; // Do not proceed with submission
-      }
+    // Validate contact number
+    if (editFormData.Contact_Number && editFormData.Contact_Number.length !== 11) {
+      alert("Contact number must be 11 digits");
+      return; // Do not proceed with submission
+    }
+    // Validate email
+    if (
+      editFormData.Email &&
+      !editFormData.Email.includes(".com") &&
+      !editFormData.Email.includes(".ph")
+    ) {
+      alert("Email must contain .com");
+      return; // Do not proceed with submission
+    }
 
-      try {
-        const response = await makeRequest.put("/updateProfile", {
-          ...editFormData,
-          NewPassword: newPassword, // Include the new password
-        });
-        console.log(response.data);
-        closeModal(); // Close the modal after successful update
-        const updatedUser = response.data.UpdatedUser;
-        setUserData(updatedUser); // Update user data with the received updated data
-        alert("Profile edited successfully!");
-      } catch (error) {
-        console.error("Error updating user:", error);
-        // Handle error here
-      }
+    try {
+      const response = await makeRequest.put("/updateProfile", {
+        ...editFormData,
+        NewPassword: newPassword, // Include the new password
+      });
+      console.log(response.data);
+      closeModal(); // Close the modal after successful update
+      const updatedUser = response.data.UpdatedUser;
+      setUserData(updatedUser); // Update user data with the received updated data
+      alert("Profile edited successfully!");
+    } catch (error) {
+      console.error("Error updating user:", error);
+      // Handle error here
     }
   };
 
   return (
-    <div className="ml-5 mt-5 flex flex-row ">
-      <div className="mr-64">
-      <h2 className="text-3xl font-semibold text-center w-64 mb-20 bg-blue-600 text-white p-4">
-    User Profile
-  </h2>
+    <div className="container mx-auto px-4 py-8">
+      <h2 className="text-3xl font-semibold text-center mb-8">User Profile</h2>
+      <div className="bg-white shadow-md rounded-lg p-8">
+        <h3 className="text-xl font-semibold mb-4">Account Details</h3>
+        <table className="w-full">
+          <tbody>
+            <tr>
+              <th className="py-2">Full Name:</th>
+              <td className="py-2">{userData.First_Name} {userData.Last_Name}</td>
+            </tr>
+            <tr>
+              <th className="py-2">Email:</th>
+              <td className="py-2">{userData.Email}</td>
+            </tr>
+            <tr>
+              <th className="py-2">Mobile Number:</th>
+              <td className="py-2">{userData.Contact_Number}</td>
+            </tr>
+            <tr>
+              <th className="py-2">Username:</th>
+              <td className="py-2">{userData.Username}</td>
+            </tr>
+            <tr>
+              <th className="py-2">Password:</th>
+              <td className="py-2">*******</td>
+            </tr>
+          </tbody>
+        </table>
+        <div className="mt-4">
+          <button
+            onClick={openModal}
+            className="bg-blue-500 text-white font-semibold px-4 py-2 rounded hover:bg-blue-600"
+          >
+            Edit
+          </button>
+          {isModalOpen && (
+            <ProfileAdminEditForm
+              editFormData={editFormData}
+              handleEditSubmit={handleEditSubmit}
+              closeModal={closeModal}
+              handleChange={handleChange}
+              newPassword={newPassword}
+              setNewPassword={setNewPassword}
+            />
+          )}
+        </div>
       </div>
-
-  <div className="flex flex-col justify-center items-center">
-    <div className="border p-2 bg-white">
-    <h1 className="font-semibold mb-8 text-3xl">Account Details
-
-    </h1>
-  <table className=" leading-normal border border-black">
-    <tbody className="bg-white">
-
-      <tr>
-        <th className="border px-3 py-2 text-2xl">Full Name</th>
-        <td className="border px-3 py-2 text-2xl ">{userData.First_Name} {userData.Last_Name}</td>
-      </tr>
-      <tr>
-        <th className="border px-3 py-2 text-2xl">Email</th>
-        <td className="border px-3 py-2 text-2xl">{userData.Email}</td>
-      </tr>
-      <tr>
-        <th className="border px-3 py-2 text-2xl">Mobile Number</th>
-        <td className="border px-3 py-2 text-2xl">{userData.Contact_Number}</td>
-      </tr>
-      <tr>
-        <th className="border px-3 py-2 text-2xl">Username</th>
-        <td className="border px-3 py-2 text-2xl">{userData.Username}</td>
-      </tr>
-      <tr>
-        <th className="border px-3 py-2 text-2xl">Password</th>
-        <td className="border px-3 py-2 text-2xl">*</td>
-      </tr>
-    </tbody>
-  </table>
-  </div>
-  
-  <div className="p-4">
-    <button
-      onClick={openModal}
-      className="w-24 bg-blue-500 text-white font-bold rounded py-2 cursor-pointer"
-    >
-      EDIT
-    </button>
-    {isModalOpen && (
-      <ProfileAdminEditForm
-        editFormData={editFormData}
-        handleEditSubmit={handleEditSubmit}
-        closeModal={closeModal}
-        handleChange={handleChange}
-        newPassword={newPassword}
-        setNewPassword={setNewPassword}
-      />
-    )}
-  </div>
-  </div>
-
-
-</div>
-
+    </div>
   );
 }
