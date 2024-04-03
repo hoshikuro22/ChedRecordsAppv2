@@ -80,7 +80,7 @@ router.get("/communicationhistoryfiles/:filename", (req, res) => {
 
 // Endpoint to send file to client via email
 router.post("/sendFileToClient", (req, res) => {
-  const { doc_ID, client_email } = req.body;
+  const { doc_ID, client_email, subject, text } = req.body;
 
   // Retrieve file path from the database based on doc_ID
   const sql = "SELECT file FROM document WHERE Doc_ID = ?";
@@ -107,8 +107,8 @@ router.post("/sendFileToClient", (req, res) => {
       // Configure your email provider here
       service: "gmail",
       auth: {
-        user: "ched10releasing@ched.gov.ph",
-        pass: "qhfr bsjq vlsu couv",
+        user: "lavictoriacitdls@gmail.com",
+        pass: "gtxr ocik bdeo xzvp",
         //ched10releasing@ched.gov.ph
         //qhfr bsjq vlsu couv
         // user: "lavictoriacitdls@gmail.com",
@@ -127,8 +127,8 @@ router.post("/sendFileToClient", (req, res) => {
       const mailOptions = {
         from: "lavictoriacitdls@gmail.com",
         to: recipient,
-        subject: "File from Communication",
-        text: "Attached is the file from Communication",
+        subject: subject,
+        text: text,
         attachments: [
           {
             filename: path.basename(filePath),

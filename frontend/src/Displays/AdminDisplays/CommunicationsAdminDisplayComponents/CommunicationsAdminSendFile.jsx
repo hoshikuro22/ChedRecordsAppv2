@@ -6,7 +6,11 @@ export default function CommunicationsAdminSendFile({
   show,
   handleCloseSendFileModal,
   handleSendFile,
-  documentToSend
+  documentToSend,
+  subject,
+  setSubject,
+  text,
+  setText,
 }) {
   if (!documentToSend) {
     // If documentToSend is null, return null or any placeholder component
@@ -42,6 +46,19 @@ export default function CommunicationsAdminSendFile({
             </tr>
           </tbody>
         </table>
+        <input
+          type="text"
+          placeholder="Subject"
+          value={subject}
+          onChange={(e) => setSubject(e.target.value)}
+          className="w-full mb-4 px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <textarea
+          placeholder="Email Text"
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          className="w-full h-32 mb-4 px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
         
         <form onSubmit={handleSendFile} className="grid grid-cols-2 gap-4">
           <div className="col-span-2 ml-auto gap-">
@@ -74,7 +91,12 @@ CommunicationsAdminSendFile.propTypes = {
     client_id: PropTypes.number.isRequired,
     client_email: PropTypes.string,
     file: PropTypes.string.isRequired
-  })
+  }),
+  subject: PropTypes.string.isRequired,
+  setSubject: PropTypes.func.isRequired,
+  text: PropTypes.string.isRequired,
+  setText: PropTypes.func.isRequired,
+
 };
 
 

@@ -599,6 +599,8 @@ export default function Communications() {
   // functions to send file to client
   const [showSendFileModal, setShowSendFileModal] = useState(false);
   const [documentToSend, setDocumentToSend] = useState(null);
+  const [subject, setSubject] = useState("");
+  const [text, setText] = useState("");
 
   // Handler to open the send file modal
   const handleOpenSendFileModal = async (doc_ID) => {
@@ -620,7 +622,7 @@ export default function Communications() {
   };
 
   // Handler to send the file to the client
-  const handleSendFile = async (e) => {
+  const handleSendFile = async (e, subject, text) => {
     e.preventDefault();
     const userConfirmed = window.confirm(
       "Are you sure you want to send the file to the client's email?"
@@ -634,10 +636,10 @@ export default function Communications() {
   
     try {
       // Assuming documentToSend contains the necessary data including doc_ID and client_email
-      const { doc_ID, client_email, client_email2, client_email3, file } = documentToSend;
+      const { doc_ID, client_email,  file } = documentToSend;
   
       // Send a POST request to your backend endpoint
-      const response = await makeRequest.post('/sendFileToClient', { doc_ID, client_email, client_email2, client_email3, file });
+      const response = await makeRequest.post('/sendFileToClient', { doc_ID, client_email, file, subject, text });
   
       // Handle success response
       console.log('File sent successfully:', response.data);
@@ -757,8 +759,10 @@ export default function Communications() {
       <CommunicationsAdminSendFile
         show={showSendFileModal}
         handleCloseSendFileModal={handleCloseSendFileModal}
-        handleSendFile={handleSendFile}
+        handleSendFile={(e) => handleSendFile(e, subject, text)}
         documentToSend={documentToSend}
+        setSubject={setSubject}
+        setText={setText}
       />
     </div>
   );
