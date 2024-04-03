@@ -107,10 +107,12 @@ router.post("/sendFileToClient", (req, res) => {
       // Configure your email provider here
       service: "gmail",
       auth: {
-        user: "lavictoriacitdls@gmail.com",
-        pass: "gtxr ocik bdeo xzvp",
+        user: "ched10releasing@ched.gov.ph",
+        pass: "qhfr bsjq vlsu couv",
         //ched10releasing@ched.gov.ph
         //qhfr bsjq vlsu couv
+        // user: "lavictoriacitdls@gmail.com",
+        // pass: "gtxr ocik bdeo xzvp",
       },
       tls: {
         rejectUnauthorized: false, // Disable SSL certificate verification
