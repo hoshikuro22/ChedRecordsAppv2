@@ -9,7 +9,7 @@ import { PiListMagnifyingGlass } from "react-icons/pi";
 
 export default function CommunicationsAdminTable({
   currentItems,
-  handleDeleteClick,
+  // handleDeleteClick,
   handleInfoClick,
   handleEditFileClick,
   handleEditClick,
@@ -433,14 +433,14 @@ export default function CommunicationsAdminTable({
                     <PiListMagnifyingGlass size="35px" />
                     <div className="absolute bg-gray-800 text-white p-2 rounded shadow-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition duration-300"></div>
                   </button>
-                  <button
+                  {/* <button
                     className="text-red-500 hover:underline font-bold"
                     onClick={() => handleDeleteClick(document.doc_ID)}
                   >
                   DELETE
-                  {/* <MdDelete size="35px"/> */}
+                
                     <div className="absolute bg-gray-800 text-white p-2 rounded shadow-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition duration-300"></div>
-                  </button>
+                  </button> */}
                 </td>
               </tr>
             ))}

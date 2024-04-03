@@ -13,12 +13,12 @@
 
   //CREATE
   router.post("/addPersonnel", (req, res) => {
-      const { personnelID, unit, lastName, firstName, position, birthDate, email, contactNumber } = req.body;
+      const { personnelID, unit, lastName, firstName, position, division, birthDate, email, contactNumber } = req.body;
     
       const sql =
-        "INSERT INTO list_personnel (Personnel_ID, Unit_ID, Last_Name, First_Name, Position, Birth_date, Email, Contact_Number ) VALUES (?, ?, ?, ?, ?, ?, ?, ? )";
+        "INSERT INTO list_personnel (Personnel_ID, Unit_ID, Last_Name, First_Name, Position, Division, Birth_date, Email, Contact_Number ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ? )";
     
-      db.query(sql, [personnelID, unit, lastName, firstName, position, birthDate, email, contactNumber], (err, result) => {
+      db.query(sql, [personnelID, unit, lastName, firstName, position, division, birthDate, email, contactNumber], (err, result) => {
         if (err) {
           console.error(err);
           return res.json({
@@ -46,6 +46,7 @@
         p.last_name,
         p.first_name,
         p.position,
+        p.division,
         p.birth_date,
         p.email,
         p.contact_number,
@@ -75,17 +76,19 @@
         last_name,
         first_name, 
         position, 
+        division,
         birth_date, 
         email, 
         contact_number } = req.body;
     
-      const sql = "UPDATE list_personnel SET unit_ID = ?, last_name = ?, first_name = ?, position = ?, birth_date = ?, email = ?, contact_number = ? WHERE personnel_id = ?";
+      const sql = "UPDATE list_personnel SET unit_ID = ?, last_name = ?, first_name = ?, position = ?, division = ?, birth_date = ?, email = ?, contact_number = ? WHERE personnel_id = ?";
     
       db.query(sql, [
         unit_ID,
         last_name,
         first_name,
         position,
+        division,
         birth_date, 
         email, 
         contact_number,

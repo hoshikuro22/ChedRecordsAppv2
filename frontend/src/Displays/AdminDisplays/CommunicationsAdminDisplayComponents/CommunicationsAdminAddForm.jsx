@@ -741,7 +741,7 @@ export default function CommunicationsAdminAddForm({
                 >
                   <option value="CHED10">CHED10</option>
                   {clientsOptions
-                  .filter((client) => client.client_type_id === 2)
+                  .filter(client => client.client_type_id === 1 || client.client_type_id === 2)
                   .map((client) => (
                     <option key={client.client_id} value={client.client_id}>
                       {client.client_name}

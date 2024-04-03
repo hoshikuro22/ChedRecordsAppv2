@@ -634,10 +634,10 @@ export default function Communications() {
   
     try {
       // Assuming documentToSend contains the necessary data including doc_ID and client_email
-      const { doc_ID, client_email, file } = documentToSend;
+      const { doc_ID, client_email, client_email2, client_email3, file } = documentToSend;
   
       // Send a POST request to your backend endpoint
-      const response = await makeRequest.post('/sendFileToClient', { doc_ID, client_email, file });
+      const response = await makeRequest.post('/sendFileToClient', { doc_ID, client_email, client_email2, client_email3, file });
   
       // Handle success response
       console.log('File sent successfully:', response.data);

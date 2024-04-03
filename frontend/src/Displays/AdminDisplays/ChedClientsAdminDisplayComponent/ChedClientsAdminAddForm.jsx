@@ -95,8 +95,8 @@ export default function ChedClientsAdminAddForm({
                   Email Address
                 </label>
                 <input
-                  required
-                  type="email"
+                  required  
+                  type="text"
                   id="email"
                   name="email"
                   placeholder="Enter Email Address"

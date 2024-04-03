@@ -66,12 +66,25 @@ export default function PersonnelAddForm({
               <div className="flex flex-col">
                 <label className="mb-1 text-sm font-semibold">Position</label>
                 <input
-                  required
+                  // required
                   type="text"
                   id="position"
                   name="position"
                   placeholder="Enter Position"
                   value={formData.position}
+                  onChange={handleChange}
+                  className="px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300 capitalize"
+                />
+              </div>
+              <div className="flex flex-col">
+                <label className="mb-1 text-sm font-semibold">Division</label>
+                <input
+                  required
+                  type="text"
+                  id="division"
+                  name="division"
+                  placeholder="Enter Division"
+                  value={formData.division}
                   onChange={handleChange}
                   className="px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300 capitalize"
                 />
@@ -164,6 +177,7 @@ PersonnelAddForm.propTypes = {
     firstName: PropTypes.string.isRequired,
     lastName: PropTypes.string.isRequired,
     position: PropTypes.string.isRequired,
+    division: PropTypes.string.isRequired,
     birthDate: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
     contactNumber: PropTypes.string.isRequired,

@@ -20,7 +20,8 @@ export default function CommunicationsAdminSendFile({
         <span className="close text-white" onClick={handleCloseSendFileModal}>
           &times;
         </span>
-        <h2 className="text-2xl font-semibold mb-4">Send File to Client</h2>
+        <h2 className="text-2xl font-semibold mb-4">Send File to Email</h2>
+        
         
         {/* Display table with document details */}
         <table className="table-auto mb-5">

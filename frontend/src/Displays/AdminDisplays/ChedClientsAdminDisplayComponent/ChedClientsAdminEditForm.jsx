@@ -67,7 +67,7 @@ export default function ChedClientsAdminEditForm({
             </label>
             <input
               required
-              type="email"
+              type="text"
               name="email"
               placeholder="Enter Email Address "
               value={editFormData.email}

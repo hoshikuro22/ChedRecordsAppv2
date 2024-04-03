@@ -80,7 +80,7 @@ router.get("/communicationhistoryfiles/:filename", (req, res) => {
 
 // Endpoint to send file to client via email
 router.post("/sendFileToClient", (req, res) => {
-  const { doc_ID, client_email, } = req.body;
+  const { doc_ID, client_email } = req.body;
 
   // Retrieve file path from the database based on doc_ID
   const sql = "SELECT file FROM document WHERE Doc_ID = ?";
@@ -97,53 +97,59 @@ router.post("/sendFileToClient", (req, res) => {
     const filename = result[0].file;
     const filePath = path.join(uploadsPath, filename);
 
-      // Check if the file exists
-  if (!fs.existsSync(filePath)) {
-    console.error("File not found:", filePath);
-    return res.status(404).json({ message: "File not found" });
-  }
+    // Check if the file exists
+    if (!fs.existsSync(filePath)) {
+      console.error("File not found:", filePath);
+      return res.status(404).json({ message: "File not found" });
+    }
     // Create Nodemailer transporter
     const transporter = nodemailer.createTransport({
       // Configure your email provider here
-      service: 'gmail',
+      service: "gmail",
       auth: {
-        user: 'lavictoriacitdls@gmail.com',
-        pass: 'gtxr ocik bdeo xzvp'
+        user: "lavictoriacitdls@gmail.com",
+        pass: "gtxr ocik bdeo xzvp",
+        //ched10releasing@ched.gov.ph
+        //qhfr bsjq vlsu couv
       },
       tls: {
-        rejectUnauthorized: false // Disable SSL certificate verification
-      }
+        rejectUnauthorized: false, // Disable SSL certificate verification
+      },
     });
 
-    // Setup email data with attachment
-    const mailOptions = {
-      from: "lavictoriacitdls@gmail.com",
-      to: client_email,
-      subject: "File from Communication",
-      text: "Attached is the file from Communication",
-      attachments: [
-        {
-          filename: path.basename(filePath),
-          path: filePath,
-        },
-      ],
-    };
+    const recipients = client_email.split(",").map((email) => email.trim());
 
-    // Send email with attachment
-    transporter.sendMail(mailOptions, (error, info) => {
-      if (error) {
-        console.error("Error sending email:", error);
-        return res.status(500).json({ message: "Failed to send email" });
-      }
+    // Loop through each recipient and send the email individually
+    recipients.forEach((recipient) => {
+      // Setup email data with attachment
+      const mailOptions = {
+        from: "lavictoriacitdls@gmail.com",
+        to: recipient,
+        subject: "File from Communication",
+        text: "Attached is the file from Communication",
+        attachments: [
+          {
+            filename: path.basename(filePath),
+            path: filePath,
+          },
+        ],
+      };
 
-      console.log("Email sent:", info.response);
-      return res.status(200).json({ message: "File sent successfully" });
+      // Send email with attachment
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          console.error("Error sending email:", error);
+          return res.status(500).json({ message: "Failed to send email" });
+        }
+
+        console.log("Email sent to", recipient, ":", info.response);
+      });
     });
+
+    // Once all emails are sent, respond with success message
+    return res.status(200).json({ message: "Files sent successfully" });
   });
 });
-
-
-
 // CREATE
 // Function to get the maximum Trans_ID from the "transaction" table
 const getMaxTransID = async () => {

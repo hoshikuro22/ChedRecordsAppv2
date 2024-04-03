@@ -17,6 +17,7 @@ export default function PersonnelTable({ personnels, handleDeleteClick, handleEd
             <th className="px-3 py-2">Last Name</th>
             <th className="px-3 py-2">First Name</th>
             <th className="px-3 py-2">Position</th>
+            <th className="px-3 py-2">Division</th>
             <th className="px-3 py-2">Unit</th>
             <th className="px-3 py-2">Birth Date</th>
             <th className="px-3 py-2">Email</th>
@@ -31,6 +32,7 @@ export default function PersonnelTable({ personnels, handleDeleteClick, handleEd
               <td className="border px-4 py-2 text-left">{personnel.last_name}</td>
               <td className="border px-4 py-2 text-left">{personnel.first_name}</td>
               <td className="border px-4 py-2 text-left">{personnel.position}</td>
+              <td className="border px-4 py-2 text-left">{personnel.division}</td>
               <td className="border px-4 py-2 text-left">{personnel.unit_type}</td>
               <td className="border px-4 py-2 text-left">{personnel.birth_date}</td>
               <td className="border px-4 py-2 text-left">{personnel.email}</td>
