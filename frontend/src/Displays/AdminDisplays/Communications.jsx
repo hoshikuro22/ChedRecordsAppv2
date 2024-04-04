@@ -651,6 +651,13 @@ export default function Communications() {
       // You can display an error message or handle it as needed
     }
   };
+    // Handler to update client email in the documentToSend state
+    const handleClientEmailChange = (newEmail) => {
+      setDocumentToSend(prevDocument => ({
+        ...prevDocument,
+        client_email: newEmail
+      }));
+    };
   return (
     <div className="h-auto mt-2 p-1 ml-5">
       <div className="flex flex-row gap-2">
@@ -763,6 +770,7 @@ export default function Communications() {
         documentToSend={documentToSend}
         setSubject={setSubject}
         setText={setText}
+        handleClientEmailChange={handleClientEmailChange}
       />
     </div>
   );

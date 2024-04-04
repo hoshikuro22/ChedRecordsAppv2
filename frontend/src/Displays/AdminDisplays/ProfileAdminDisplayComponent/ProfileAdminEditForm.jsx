@@ -9,12 +9,12 @@ export default function ProfileAdminEditForm({
   setNewPassword,
 }) {
   return (
-    <div className="fixed inset-0 flex items-center justify-center">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       <div className="absolute inset-0 bg-gray-900 opacity-75"></div>
       <div className="bg-white rounded-lg p-8 z-50">
-        <h2 className="text-2xl font-semibold mb-4">Edit Profile</h2>
+        <h2 className="text-2xl font-semibold font-mono mb-4">Edit Profile</h2>
         <form onSubmit={handleEditSubmit} className="grid grid-cols-2 gap-4">
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col">
             <label htmlFor="First_Name" className="mb-1 text-sm font-semibold">
               First Name
             </label>
@@ -115,7 +115,7 @@ export default function ProfileAdminEditForm({
             <button
               type="button"
               onClick={closeModal}
-              className="px-4 py-2 text-white bg-gray-500 rounded-lg hover:bg-gray-600 transition duration-300"
+              className="px-4 py-2 text-white bg-gray-600 rounded-lg hover:bg-red-600 transition duration-300"
             >
               Cancel
             </button>

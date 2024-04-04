@@ -114,63 +114,41 @@ export default function NormalStaffProfile() {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen">
-      <div className="bg-white rounded-lg overflow-hidden shadow-md w-full max-w-md">
-        <div className="bg-blue-600 text-white p-4">
-          <h2 className="text-3xl font-semibold flex justify-center">
-            User Profile
-          </h2>
-        </div>
-        <table className="w-full">
-          <tbody>
-            {/* <tr className="bg-gray-100">
-            <td className="border px-4 py-2 font-semibold">User ID:</td>
-            <td className="border px-4 py-2">{userData.User_ID}</td>
-          </tr>
-  
-          <tr>
-            <td className="border px-4 py-2 font-semibold">User Type ID:</td>
-            <td className="border px-4 py-2">{userData.User_type_ID}</td>
-          </tr> */}
-
-            <tr className="bg-gray-100">
-              <td className="border px-4 py-2 font-semibold">First Name:</td>
-              <td className="border px-4 py-2">{userData.First_Name}</td>
-            </tr>
-
-            <tr>
-              <td className="border px-4 py-2 font-semibold">Last Name:</td>
-              <td className="border px-4 py-2">{userData.Last_Name}</td>
-            </tr>
-
-            <tr className="bg-gray-100">
-              <td className="border px-4 py-2 font-semibold">Email:</td>
-              <td className="border px-4 py-2">{userData.Email}</td>
-            </tr>
-
-            <tr>
-              <td className="border px-4 py-2 font-semibold">Mobile Number:</td>
-              <td className="border px-4 py-2">{userData.Contact_Number}</td>
-            </tr>
-
-            <tr>
-              <td className="border px-4 py-2 font-semibold">Username:</td>
-              <td className="border px-4 py-2">{userData.Username}</td>
-            </tr>
-
-            <tr>
-              <td className="border px-4 py-2 font-semibold">Password:</td>
-              <td className="border px-4 py-2">*</td>
-            </tr>
-          </tbody>
-        </table>
-        <div className="p-4">
-          <button
-            onClick={openModal}
-            className="w-full bg-blue-500 text-white font-bold rounded py-2 cursor-pointer"
-          >
-            EDIT
-          </button>
+    <div className="container mx-auto px-4 py-8">
+  <h2 className="text-3xl font-semibold text-center mb-8 font-mono">USER PROFILE</h2>
+  <div className="bg-white shadow-md rounded-lg p-8 mx-auto max-w-lg">
+    <h3 className="text-xl font-semibold mb-4 text-gray-800 border-b-2 border-gray-400 pb-2 font-mono">ACCOUNT DETAILS</h3>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="flex flex-col">
+        <label className="text-gray-600 font-semibold">FULL NAME</label>
+        <p className="text-gray-800 font-bold">{userData.First_Name} {userData.Last_Name}</p>
+      </div>
+      <div className="flex flex-col">
+        <label className="text-gray-600 font-semibold">EMAIL</label>
+        <p className="text-gray-800 font-bold">{userData.Email}</p>
+      </div>
+      <div className="flex flex-col">
+        <label className="text-gray-600 font-semibold">MOBILE NUMBER</label>
+        <p className="text-gray-800 font-bold">{userData.Contact_Number}</p>
+      </div>
+      <div className="flex flex-col">
+        <label className="text-gray-600 font-semibold">USERNAME</label>
+        <p className="text-gray-800 font-bold">{userData.Username}</p>
+      </div>
+      <div className="flex flex-col">
+        <label className="text-gray-600 font-semibold">PASSWORD</label>
+        <p className="text-gray-800 font-bold">*********</p>
+      </div>
+    </div>
+    <div className="mt-8 flex justify-center">
+      <button
+        onClick={openModal}
+        className="py-2 px-6 bg-blue-600 hover:bg-blue-700 focus:ring-2 focus:ring-offset-2 
+        focus:ring-blue-500 focus:ring-offset-blue-200 text-white transition duration-200 
+        text-center text-base font-semibold shadow-md focus:outline-none rounded-lg"
+      >
+        Edit Account Details
+      </button>
           {isModalOpen && (
             <ProfileNormalStaffEditForm
               editFormData={editFormData}

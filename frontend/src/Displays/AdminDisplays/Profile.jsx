@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import ProfileAdminEditForm from "./ProfileAdminDisplayComponent/ProfileAdminEditForm";
 import { makeRequest } from "../../../axios";
-
 export default function Profile() {
   const [userData, setUserData] = useState({
     User_ID: "",
@@ -67,8 +66,19 @@ export default function Profile() {
   const handleEditSubmit = async (e) => {
     e.preventDefault();
 
+    // Alert confirmation before editing
+    const isConfirmed = window.confirm(
+      "Are you sure you want to edit your profile?"
+    );
+    if (!isConfirmed) {
+      return; // If user cancels, do not proceed with submission
+    }
+
     // Validate contact number
-    if (editFormData.Contact_Number && editFormData.Contact_Number.length !== 11) {
+    if (
+      editFormData.Contact_Number &&
+      editFormData.Contact_Number.length !== 11
+    ) {
       alert("Contact number must be 11 digits");
       return; // Do not proceed with submission
     }
@@ -100,40 +110,47 @@ export default function Profile() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h2 className="text-3xl font-semibold text-center mb-8">User Profile</h2>
-      <div className="bg-white shadow-md rounded-lg p-8">
-        <h3 className="text-xl font-semibold mb-4">Account Details</h3>
-        <table className="w-full">
-          <tbody>
-            <tr>
-              <th className="py-2">Full Name:</th>
-              <td className="py-2">{userData.First_Name} {userData.Last_Name}</td>
-            </tr>
-            <tr>
-              <th className="py-2">Email:</th>
-              <td className="py-2">{userData.Email}</td>
-            </tr>
-            <tr>
-              <th className="py-2">Mobile Number:</th>
-              <td className="py-2">{userData.Contact_Number}</td>
-            </tr>
-            <tr>
-              <th className="py-2">Username:</th>
-              <td className="py-2">{userData.Username}</td>
-            </tr>
-            <tr>
-              <th className="py-2">Password:</th>
-              <td className="py-2">*******</td>
-            </tr>
-          </tbody>
-        </table>
-        <div className="mt-4">
+      <h2 className="text-3xl font-semibold text-center mb-8 font-mono">
+        USER PROFILE
+      </h2>
+      <div className="bg-white shadow-md rounded-lg p-8 mx-auto max-w-lg">
+        <h3 className="text-xl font-semibold mb-4 text-gray-800 border-b-2 border-gray-400 pb-2 font-mono">
+          ACCOUNT DETAILS
+        </h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="flex flex-col">
+            <label className="text-gray-600 font-semibold">FULL NAME</label>
+            <p className="text-gray-800 font-bold">
+              {userData.First_Name} {userData.Last_Name}
+            </p>
+          </div>
+          <div className="flex flex-col">
+            <label className="text-gray-600 font-semibold">EMAIL</label>
+            <p className="text-gray-800 font-bold">{userData.Email}</p>
+          </div>
+          <div className="flex flex-col">
+            <label className="text-gray-600 font-semibold">MOBILE NUMBER</label>
+            <p className="text-gray-800 font-bold">{userData.Contact_Number}</p>
+          </div>
+          <div className="flex flex-col">
+            <label className="text-gray-600 font-semibold">USERNAME</label>
+            <p className="text-gray-800 font-bold">{userData.Username}</p>
+          </div>
+          <div className="flex flex-col">
+            <label className="text-gray-600 font-semibold">PASSWORD</label>
+            <p className="text-gray-800 font-bold">*********</p>
+          </div>
+        </div>
+        <div className="mt-8 flex justify-center">
           <button
             onClick={openModal}
-            className="bg-blue-500 text-white font-semibold px-4 py-2 rounded hover:bg-blue-600"
+            className="py-2 px-6 bg-blue-600 hover:bg-blue-700 focus:ring-2 focus:ring-offset-2 
+        focus:ring-blue-500 focus:ring-offset-blue-200 text-white transition duration-200 
+        text-center text-base font-semibold shadow-md focus:outline-none rounded-lg"
           >
-            Edit
+            Edit Account Details
           </button>
+
           {isModalOpen && (
             <ProfileAdminEditForm
               editFormData={editFormData}
