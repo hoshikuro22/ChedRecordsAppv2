@@ -109,8 +109,7 @@ router.post("/sendFileToClient", (req, res) => {
       auth: {
         user: "lavictoriacitdls@gmail.com",
         pass: "gtxr ocik bdeo xzvp",
-        //ched10releasing@ched.gov.ph
-        //qhfr bsjq vlsu couv
+      
         // user: "lavictoriacitdls@gmail.com",
         // pass: "gtxr ocik bdeo xzvp",
       },
