@@ -32,7 +32,7 @@ export default function ChedClientsAdminTable({
         <thead className="bg-gray-200 sticky top-0">
           <tr className="bg-gray-400">
             {/* <th className="px-4 py-2 ">Client ID</th> */}
-            <th className="px-4 py-2">Name of Client</th>
+            <th className="px-4 py-2">Name of Recipients</th>
             <th className="px-4 py-2">
               <div className="relative inline-block ml-2">
                 <button
@@ -44,8 +44,8 @@ export default function ChedClientsAdminTable({
                     ? clientTypeOptions.find(
                         (option) =>
                           option.Client_type_ID === selectedClientTypeFilter
-                      )?.type || "Client Type"
-                    : "Client Type"}
+                      )?.type || "Recipient Type"
+                    : "Recipient Type"}
                 </button>
                 {showClientTypeFilterDropdown ? (
                   <div className="origin-top-right absolute right-0 mt-2 w-auto rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">

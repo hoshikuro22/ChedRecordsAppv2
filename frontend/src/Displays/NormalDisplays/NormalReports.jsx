@@ -215,7 +215,7 @@ export default function NormalReports() {
                     htmlFor="yearFilter"
                     className="text-gray-700 font-medium"
                   >
-                    Filter by Year Received:{" "}
+                    Year Received:{" "}
                   </label>
                   <input
                     type="number"
@@ -232,7 +232,7 @@ export default function NormalReports() {
                     htmlFor="monthFilter"
                     className="text-gray-700 font-medium"
                   >
-                    Filter by Month Received:{" "}
+                   Month Received:{" "}
                   </label>
                   <select
                     id="monthFilter"
@@ -257,7 +257,7 @@ export default function NormalReports() {
                     htmlFor="dayFilter"
                     className="text-gray-700 font-medium"
                   >
-                    Filter by Day Received:{" "}
+                    Day Received:{" "}
                   </label>
                   <select
                     id="dayFilter"

@@ -111,7 +111,7 @@ export default function CommunicationsAdminTable({
                 >
                   {selectedClientNameFilter
                     ? selectedClientNameFilter
-                    : "Client Name"}
+                    : "Recipient Name"}
                 </button>
                 {showClientNameFilterDropdown && (
                   <div className="origin-top-right absolute left-0 w-auto rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none h-96 overflow-auto">
@@ -292,7 +292,7 @@ export default function CommunicationsAdminTable({
                           selectedStatusFilter === "2"
                             ? "bg-gray-200 text-gray-900"
                             : "text-gray-700"
-                        } block px-1 py-2 text-sm w-full text-center hover:bg-gray-500`}
+                        } block px-1 py-2 text-sm w-full text-center hover:bg-red-500`}
                       >
                         Disapproved
                       </button>
