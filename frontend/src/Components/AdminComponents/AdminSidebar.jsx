@@ -105,11 +105,26 @@ export default function AdminSidebar() {
                     }`}
                   >
                    <FaCircleUser />
-                    CHED Clients
+                    CHED Recipients
+
                   </a>
                 </li>
               </div>
-
+              <div className="text-center block items-center mb-2">
+                <li>
+                  <a
+                    href="/admin/clienttypes"
+                    className={`py-1 px-2 rounded flex gap-3 items-center ${
+                      location.pathname === "/admin/clienttypes"
+                        ? "bg-gray-500 hover:bg-gray-700 font-bold"
+                        : "hover:bg-gray-700"
+                    }`}
+                  >
+                    <BsFillPersonLinesFill />
+                    Recipient Types
+                  </a>
+                </li>
+              </div>
               <div className="text-center block items-center mb-2">
                 <li>
                   <a
@@ -125,23 +140,6 @@ export default function AdminSidebar() {
                   </a>
                 </li>
               </div>
-
-              <div className="text-center block items-center mb-2">
-                <li>
-                  <a
-                    href="/admin/clienttypes"
-                    className={`py-1 px-2 rounded flex gap-3 items-center ${
-                      location.pathname === "/admin/clienttypes"
-                        ? "bg-gray-500 hover:bg-gray-700 font-bold"
-                        : "hover:bg-gray-700"
-                    }`}
-                  >
-                    <BsFillPersonLinesFill />
-                    Client Types
-                  </a>
-                </li>
-              </div>
-
               <div className="text-center block items-center mb-2">
                 <li>
                   <a

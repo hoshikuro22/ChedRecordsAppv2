@@ -101,14 +101,14 @@ export default function CommunicationsNormalTable({
                 <button
                   onClick={handleToggleClientNameFilterDropdown}
                   type="button"
-                  className="inline-flex justify-center w-32 px-2 py-1 text-black bg-gray-400 rounded-lg hover:bg-gray-500 transition duration-300"
+                  className="inline-flex justify-center w-32 px-2 py-1 text-black bg-gray-400 rounded-lg hover:bg-gray-500 transition duration-300 font-mono"
                 >
                   {selectedClientNameFilter
                     ? selectedClientNameFilter
-                    : "Client Name"}
+                    : "Recipient Name"}
                 </button>
                 {showClientNameFilterDropdown && (
-                  <div className="origin-top-right absolute right-0 w-auto rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none h-96 overflow-auto">
+                  <div className="origin-top-right absolute left-0 w-auto rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none h-96 overflow-auto">
                     <div className="py-1">
                       <button
                         onClick={() => handleSelectClientNameFilter("")} // Clears the filter
@@ -140,13 +140,13 @@ export default function CommunicationsNormalTable({
                 )}
               </div>
             </th>
-            <th className="px-1 py-2">Assigned Personnel</th>
+            <th className="px-1 py-2 font-mono">Prepared By</th>
             <th className="px-1 py-2">
               <div className="relative inline-block ml-2">
                 <button
                   onClick={handleToggleUnitFilterDropdown}
                   type="button"
-                  className="inline-flex justify-center w-auto px-2 py-1 text-black bg-gray-400 rounded-lg hover:bg-gray-500 transition duration-300"
+                  className="inline-flex justify-center w-auto px-2 py-1 text-black bg-gray-400 rounded-lg hover:bg-gray-500 transition duration-300 font-mono"
                 >
                   {selectedUnitFilter
                     ? unitOptions.find(
@@ -155,7 +155,7 @@ export default function CommunicationsNormalTable({
                     : "Unit"}
                 </button>
                 {showUnitFilterDropdown ? (
-                  <div className="origin-top-right absolute right-0 mt-2 w-40 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                  <div className="origin-top-right absolute right-0 mt-2 w-40 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none font-mono">
                     <div className="py-1">
                       <button
                         onClick={() => handleSelectUnitFilter("")}
@@ -185,7 +185,7 @@ export default function CommunicationsNormalTable({
                 ) : null}
               </div>
             </th>
-            <th className="px-1 py-2">
+            <th className="px-1 py-2 font-mono">
               <div className="relative inline-block ml-2">
                 <button
                   onClick={handleToggleTypeFilterDropdown}
@@ -226,7 +226,7 @@ export default function CommunicationsNormalTable({
               </div>
             </th>
 
-            <th className="px-1 py-2">Date Received</th>
+            <th className="px-1 py-2 font-mono">Date Received</th>
             {/* <th className="px-4 py-2">Date Release</th> */}
             <th className="px-1 py-2">
               <div className="relative inline-block ml-2">
@@ -234,7 +234,7 @@ export default function CommunicationsNormalTable({
                   <button
                     onClick={handleToggleStatusFilterDropdown}
                     type="button"
-                    className="inline-flex justify-center w-26 px-2 py-1 text-black bg-gray-400 rounded-lg hover:bg-gray-500 transition duration-300"
+                    className="inline-flex justify-center w-26 px-2 py-1 text-black bg-gray-400 rounded-lg hover:bg-gray-500 transition duration-300 font-mono"
                   >
                     {selectedStatusFilter === "0"
                       ? "Pending"
@@ -293,9 +293,9 @@ export default function CommunicationsNormalTable({
                 ) : null}
               </div>
             </th>
-            <th className="px-1 py-2">Remarks</th>
-            <th className="px-1 py-2">File</th>
-            <th className="px-1 py-2">Action</th>
+            <th className="px-1 py-2 font-mono">Remarks</th>
+            <th className="px-1 py-2 font-mono">File</th>
+            <th className="px-1 py-2 font-mono">Action</th>
           </tr>
         </thead>
         <tbody>

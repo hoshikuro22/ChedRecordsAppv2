@@ -13,7 +13,7 @@ export default function ClientTypesTable({ clientTypes, handleDeleteClick, handl
       <thead className="bg-gray-200 sticky top-0">
           <tr className="bg-gray-200">
             {/* <th className="px-4 py-2">ID</th> */}
-            <th className="px-4 py-2 text-center">Client Type</th>
+            <th className="px-4 py-2 text-center">Recipient Type</th>
             <th className="px-4 py-2 text-center">Remarks</th>
             <th className="px-4 py-2 text-center">Action</th>
           
