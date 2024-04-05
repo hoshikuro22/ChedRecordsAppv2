@@ -87,7 +87,7 @@ export default function LandingPage() {
             </div>
           </div>
 
-          <div className="relative bg-black bg-opacity-40 flex items-center justify-center z-10">
+          <div className="relative bg-black bg-opacity-10 flex items-center justify-center z-10">
             <div className="bg-white p-8 rounded shadow-lg w-80 my-2">
               <div className="items-center flex mb-4 gap-2">
                 <BsFillPersonFill size="25" />

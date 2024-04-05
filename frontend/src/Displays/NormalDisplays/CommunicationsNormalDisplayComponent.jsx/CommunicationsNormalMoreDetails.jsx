@@ -30,7 +30,7 @@ export default function CommunicationsNormalMoreDetails({
                   <th className="px-4 py-2">Status</th>
                   <th className="px-4 py-2">Remarks</th>
                   <th className="px-4 py-2">Tags</th>
-                  <th className="px-4 py-2">Assigned Personnel</th>
+                  <th className="px-4 py-2">Prepared By</th>
                   <th className="px-4 py-2">Document Type</th>
                 </tr>
               </thead>

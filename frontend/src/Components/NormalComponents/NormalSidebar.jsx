@@ -113,7 +113,7 @@ export default function NormalSidebar() {
 
           <div className="bottom-5 absolute">
             <Link
-              to="/"
+              to="/login"
               onClick={handleLogout}
               className="px-2 rounded hover:bg-gray-700 flex gap-2 items-center"
             >

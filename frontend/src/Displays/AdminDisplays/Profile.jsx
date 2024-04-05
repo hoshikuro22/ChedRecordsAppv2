@@ -150,7 +150,6 @@ export default function Profile() {
           >
             Edit Account Details
           </button>
-
           {isModalOpen && (
             <ProfileAdminEditForm
               editFormData={editFormData}
