@@ -76,8 +76,8 @@ export default function LandingPage() {
                   src={Picture}
                 />
                 <div>
-                  <span className="block text-center md:text-left">
-                    Commission on Higher Education Region X
+                  <span className="block text-center font-bold md:text-left">
+                    Commission on Higher Education Region 10
                   </span>
                   <span className="block mt-7 text-5xl font-bold text-center md:text-left">
                     Records Management Information System
@@ -91,11 +91,11 @@ export default function LandingPage() {
             <div className="bg-white p-8 rounded shadow-lg w-80 my-2">
               <div className="items-center flex mb-4 gap-2">
                 <BsFillPersonFill size="25" />
-                <h1 className="text-3xl font-semibold ">User Login</h1>
+                <h1 className="text-3xl font-semibold font-mono">User Login</h1>
               </div>
               <form onSubmit={handleSubmit}>
                 <div className="mb-4">
-                  <label className="block text-lg font-medium text-gray-700">
+                  <label className="block text- font-medium leading-6 text-balance">
                     Username
                   </label>
                   <input
@@ -110,7 +110,7 @@ export default function LandingPage() {
                   />
                 </div>
                 <div className="mb-4">
-                  <label className="block text-lg font-medium text-gray-700">
+                  <label className="block text-medium font-medium leading-6 text-balance">
                     Password
                   </label>
                   <input
@@ -126,7 +126,7 @@ export default function LandingPage() {
                 </div>
                 <button
                   type="submit"
-                  className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 text-lg"
+                  className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 text-lg font-mono"
                 >
                   Login
                 </button>

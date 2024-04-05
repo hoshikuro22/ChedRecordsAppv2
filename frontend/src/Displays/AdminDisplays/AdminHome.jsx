@@ -221,9 +221,10 @@ export default function AdminHome() {
   return (
     <div className="h-auto ml-5">
       <div className="container mx-auto flex-row">
-        <h1 className="text-2xl font-semibold text-gray-500 mb-10 underline">
-          Dashboard
-        </h1>
+      <h1 className="text-3xl font-semibold font-mono text-indigo-800 mb-6 border-b-2 border-gray-300 pb-2">
+  DASHBOARD
+</h1>
+
         {/* First Row - Three Smaller Sections */}
         <div className="grid grid-cols-4 gap-6 mt-4 mb-5">
           <div className="bg-white rounded-lg shadow-lg p-2 border border-gray-300  transition-all">

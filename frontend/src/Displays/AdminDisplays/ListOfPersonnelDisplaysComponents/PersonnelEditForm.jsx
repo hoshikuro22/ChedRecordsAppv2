@@ -67,6 +67,17 @@ export default function PersonnelEditForm({
             />
           </div>
           <div className="flex flex-col">
+            <label className="mb-1 text-sm font-semibold">Division</label>
+            <input
+              type="text"
+              name="division"
+              placeholder="Enter Division"
+              value={editFormData.division}
+              onChange={handleChange}
+              className="px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
+            />
+          </div>
+          <div className="flex flex-col">
             <label className="mb-1 text-sm font-semibold">Birth Date</label>
             <input
               type="text"
@@ -128,6 +139,7 @@ PersonnelEditForm.propTypes = {
     last_name: PropTypes.string,
     first_name: PropTypes.string,
     position: PropTypes.string,
+    division: PropTypes.string,
     birth_date: PropTypes.string,
     email: PropTypes.string,
     contact_number: PropTypes.string,
